@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Hiztegia {
 	private ArrayList<Hitza> hitzak;
+	//HashSet seria O(1), sin busquedas ni pillar una letra ni nada
 	
 	public void add (ArrayList<Hitza> pH){
 		hitzak.addAll(pH);

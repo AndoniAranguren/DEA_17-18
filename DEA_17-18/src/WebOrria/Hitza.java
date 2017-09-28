@@ -14,5 +14,4 @@ public class Hitza {
 	public boolean izenBerdin(Hitza pH){
 		return hitza.equals(pH);
 	}
-
 }
