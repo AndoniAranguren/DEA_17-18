@@ -1,22 +1,35 @@
 package eginkizuna1;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-public class WebOrria {
-	
+public class WebOrria implements Comparable<WebOrria>{
+	//Atributuak
 	private String url;
 	private int id;
 	
 	private ArrayList<WebOrria> listaNondik = new ArrayList<WebOrria>();
 	private ArrayList<WebOrria> listaNora = new ArrayList<WebOrria>();
-	private ArrayList<Hitza> listaGakoa= new ArrayList<Hitza>();
+	private ArrayList<String> listaGakoa= new ArrayList<String>();
 	
+	//Eraikitzailea
 	public WebOrria(String pUrl, int pId){
 		url=pUrl;
 		id=pId;
+		listaGakoa=web2Words(url);
 	}
 
+	private ArrayList<String> web2Words(String pUrl) {
+		ArrayList<String> gakoak= new ArrayList<String>();
+		
+		
+		//TODO
+		
+		
+		
+		return gakoak;
+	}
+
+	//Metodoak
 	public void addNondik(WebOrria pObj){
 		if(!listaNondik.contains(pObj)) listaNondik.add(pObj);
 	}
@@ -29,30 +42,30 @@ public class WebOrria {
 	public void addNora(ArrayList<WebOrria> pObj){
 		for(WebOrria obj: pObj) addNora(obj);
 	}
-	public void addGakoa(Hitza pH){
-		if(!listaGakoa.contains(pH)) listaGakoa.add(pH);
+	public void addGakoa(String pObj){
+		if(!listaGakoa.contains(pObj)) listaGakoa.add(pObj);
 	}
-	public void addGakoa(ArrayList<Hitza> pObj){
-		for(Hitza obj: pObj) addGakoa(obj);
+	public void addGakoa(ArrayList<String> pObj){
+		for(String obj: pObj) addGakoa(obj);
 	}
 	
 	public void removeNondik(Object pObj){
 		listaNondik.remove((WebOrria)pObj);
 	}
 	public void removeNondik(ArrayList<WebOrria> pObj){
-		for(WebOrria obj: pObj) listaNondik.remove(obj);
+		for(WebOrria obj: pObj) removeNondik(obj);
 	}
 	public void removeNora(Object pObj){
 		listaNora.remove((WebOrria)pObj);
 	}
 	public void removeNora(ArrayList<WebOrria> pObj){
-		for(WebOrria obj: pObj) listaNora.remove(obj);
+		for(WebOrria obj: pObj) removeNora(obj);
 	}
 	public void removeGakoa(Object pObj){
 		listaGakoa.remove((WebOrria)pObj);
 	}
-	public void removeGakoa(ArrayList<Hitza> pObj){
-		for(Hitza obj: pObj) listaGakoa.remove(obj);
+	public void removeGakoa(ArrayList<String> pObj){
+		for(String obj: pObj) removeGakoa(obj);
 	}
 	
 	public ArrayList<WebOrria> getNondik(){
@@ -61,8 +74,14 @@ public class WebOrria {
 	public ArrayList<WebOrria> getNora(){
 		return listaNora;
 	}
-	public ArrayList<Hitza> getHitza(){
+	public ArrayList<String> getGakoa(){
 		return listaGakoa;
+	}
+	public String getUrl(){
+		return url;
+	}
+	public int getId(){
+		return id;
 	}
 	
 	public boolean containsNondik(WebOrria pObj){
@@ -71,17 +90,23 @@ public class WebOrria {
 	public boolean containsNora(WebOrria pObj){
 		return listaNora.contains(pObj);
 	}
-	public boolean containsNondik(Hitza pObj){
+	public boolean containsGakoa(String pObj){
 		return listaGakoa.contains(pObj);
 	}
 	
-	public boolean urlBerdina(String pI){
-		return url.equals(pI);
+	public boolean equals(int pI){ 
+		//Deskribapena: Id-etik String-a ateratzeko
+		//Aurrebaldintza: Id batek beti url berdina izatea, eta alderantziz. Url eta id-ak ez errepikatzea
+		return (id==pI);
+	}
+	public boolean equals(String pUrl){
+		//Deskribapena: String-etik Id-a ateratzeko
+		//Aurrebaldintza: Id batek beti url berdina izatea, eta alderantziz. Url eta id-ak ez errepikatzea
+		return url.equals(pUrl);
 	}
 	public boolean equals(WebOrria pW){
-		return pW.urlBerdina(url);
+		return pW.equals(id);
 	}
-	
 	public int compareAlf(String pU){
 		return url.compareTo(pU);
 	}
