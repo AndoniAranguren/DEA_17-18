@@ -1,6 +1,9 @@
 package eginkizuna1;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class WebOrria implements Comparable<WebOrria>{
 	//Atributuak
@@ -19,13 +22,24 @@ public class WebOrria implements Comparable<WebOrria>{
 	}
 
 	private ArrayList<String> web2Words(String pUrl) {
-		ArrayList<String> gakoak= new ArrayList<String>();
+		ArrayList<String> gakoak= new ArrayList<String>(), arrayAux=null;		
+		Hiztegia hiztegi=Hiztegia.getHiztegia();
+		String aux=pUrl, hitza;
+		boolean jarraitu=true;
+		int ind=0;
 		
-		
-		//TODO
-		
-		
-		
+		while(jarraitu && url.isEmpty()) {
+			hitza=aux.substring(0,pUrl.length()-ind);
+			if(hiztegi.contains(hitza)) {
+					arrayAux=web2Words(aux.substring(pUrl.length()-ind,aux.length()));
+					if(arrayAux!=null||aux.length()==0) {
+						gakoak.add(hitza);
+						gakoak.addAll(arrayAux);
+						jarraitu=false;
+					}
+			}else
+				ind++;
+		}
 		return gakoak;
 	}
 
