@@ -1,6 +1,9 @@
 package eginkizuna1;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class WebOrria implements Comparable<WebOrria>{
 	//Atributuak
@@ -113,4 +116,5 @@ public class WebOrria implements Comparable<WebOrria>{
 	public int compareTo(WebOrria pW){
 		return pW.compareAlf(url);
 	}
+	
 }
