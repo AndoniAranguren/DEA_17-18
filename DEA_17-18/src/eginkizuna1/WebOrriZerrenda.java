@@ -1,11 +1,14 @@
 package eginkizuna1;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class WebOrriZerrenda {
 	//Atributuak
-	private TreeMap<WebOrria,WebOrria> listaWebOrri; 
+	private TreeMap<WebOrria,WebOrria> listaWebOrri;
 	//Treemap WebOrriak index moduan eta WebOrrietara apuntatuz erraz atera ahal da id2String eta string2Id
 	//Gainera oso azkarra izango da, eta memoriako puntu berera apuntatzen dutenez ez dute memoria extrarik xahutuko
 	private WebOrriZerrenda nireBurua;
@@ -71,5 +74,22 @@ public class WebOrriZerrenda {
 				listaString.add(web.getUrl());
 		
 		return listaString;
+	}
+	
+	public void datuakKargatu(String pHelbidea){
+		
+		WebOrria web=null;
+		String url;
+		int id;
+		try{	
+			Scanner entrada= new Scanner (new FileReader(pHelbidea));
+			while(entrada.hasNext()){
+				url=entrada.nextLine();
+				id=Integer.parseInt(entrada.nextLine());
+				web= new WebOrria(url,id);
+				add(web);
+			}
+		}
+		catch(IOException e){System.out.println("Beste helbide bat sar ezazu.");}
 	}
 }

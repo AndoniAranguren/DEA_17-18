@@ -1,12 +1,13 @@
-package WebOrria;
+package eginkizuna1;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+
+import WebOrria.Hitza;
 
 public class Hiztegia {
-	private ArrayList<Hitza> hitzak;
-	//HashSet seria O(1), sin busquedas ni pillar una letra ni nada
+	private HashSet<Hitza> hitzak;
 	
-	public void add (ArrayList<Hitza> pH){
+	public void add (java.util.ArrayList<Hitza> pH){
 		hitzak.addAll(pH);
 	}
 	public void add (Hitza pH){
