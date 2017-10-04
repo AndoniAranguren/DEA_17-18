@@ -1,9 +1,6 @@
 package eginkizuna1;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class WebOrria implements Comparable<WebOrria>{
 	//Atributuak
@@ -75,8 +72,8 @@ public class WebOrria implements Comparable<WebOrria>{
 	public void removeNora(ArrayList<WebOrria> pObj){
 		for(WebOrria obj: pObj) removeNora(obj);
 	}
-	public void removeGakoa(Object pObj){
-		listaGakoa.remove((WebOrria)pObj);
+	public void removeGakoa(String pObj){
+		listaGakoa.remove(pObj);
 	}
 	public void removeGakoa(ArrayList<String> pObj){
 		for(String obj: pObj) removeGakoa(obj);
@@ -127,4 +124,5 @@ public class WebOrria implements Comparable<WebOrria>{
 	public int compareTo(WebOrria pW){
 		return pW.compareAlf(url);
 	}
+	
 }
