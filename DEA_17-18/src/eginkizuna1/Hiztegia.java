@@ -11,7 +11,9 @@ public class Hiztegia {
 	private static Hiztegia nireBurua;
 	
 	//Eraikitzailea
-	private Hiztegia(){}
+	private Hiztegia(){
+		hiztegia=new HashSet<String>();
+	}
 	public static Hiztegia getHiztegia(){
 		if(nireBurua==null)
 			nireBurua = new Hiztegia();
@@ -32,10 +34,15 @@ public class Hiztegia {
 		return hiztegia.contains(pH);
 	}
 	public void datuakKargatu(String pHelbidea){
+		String hitza;
 		try{
 			Scanner entrada= new Scanner (new FileReader (pHelbidea));
+			System.out.println("whilera sartuko da...");
 			while(entrada.hasNext()){
-				add(entrada.next());
+				System.out.println(".");
+				hitza=entrada.next();
+				System.out.println(hitza+"\n");
+				add(hitza);
 			}
 		}
 		catch(IOException e){
