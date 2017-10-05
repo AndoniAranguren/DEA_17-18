@@ -11,7 +11,9 @@ public class Hiztegia {
 	private static Hiztegia nireBurua;
 	
 	//Eraikitzailea
-	private Hiztegia(){}
+	private Hiztegia(){
+		hiztegia=new HashSet<String>();
+	}
 	public static Hiztegia getHiztegia(){
 		if(nireBurua==null)
 			nireBurua = new Hiztegia();
@@ -19,27 +21,36 @@ public class Hiztegia {
 	}
 	
 	//Metodoak
-	public void add (java.util.ArrayList<String> pH){
-		hiztegia.addAll(pH);
+	public boolean add (java.util.ArrayList<String> pH){
+		return hiztegia.addAll(pH);
 	}
-	public void add (String pH){
-		hiztegia.add(pH);
+	public boolean add (String pH){
+		return hiztegia.add(pH);
 	}
-	public void remove(String pH){
-		hiztegia.remove(pH);
+	public boolean remove(java.util.ArrayList<String> pH){
+		return hiztegia.removeAll(pH);
+	}
+	public boolean remove(String pH){
+		return hiztegia.remove(pH);
 	}
 	public boolean contains(String pH) {
 		return hiztegia.contains(pH);
 	}
+	public void clear() {
+		hiztegia.clear();
+	}
 	public void datuakKargatu(String pHelbidea){
+		int kop=0;
 		try{
 			Scanner entrada= new Scanner (new FileReader (pHelbidea));
 			while(entrada.hasNext()){
-				add(entrada.next());
+				if(add(entrada.next())) kop++;
 			}
 		}
 		catch(IOException e){
 			System.out.println("Sar ezazu beste helbide bat.");
-			}
+		}
+		System.out.println(kop+ " hitz kargatu dira");
+		System.out.println(hiztegia.size()+ " hitz ditu listak");
 	}
 }
