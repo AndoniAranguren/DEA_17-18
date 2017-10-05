@@ -15,25 +15,36 @@ public class WebOrria implements Comparable<WebOrria>{
 	public WebOrria(String pUrl, int pId){
 		url=pUrl;
 		id=pId;
-		listaGakoa=web2Words(url);
+		listaGakoa=web2Words(url); //Crear lista gakos en cuanto creas la weborri pa no tener que recorrer WebOrriZerrenda otra vez
 	}
 
 	private ArrayList<String> web2Words(String pUrl) {
-		ArrayList<String> gakoak= new ArrayList<String>();
+		ArrayList<String> gakoak= new ArrayList<String>(), arrayAux=null;		
+		Hiztegia hiztegi=Hiztegia.getHiztegia();
+		String aux=pUrl, hitza;
+		boolean jarraitu=true;
+		int ind=0;
 		
-		
-		//TODO
-		
-		
-		
+		while(jarraitu && url.isEmpty()) {
+			hitza=aux.substring(0,pUrl.length()-ind);
+			if(hiztegi.contains(hitza)) {
+					arrayAux=web2Words(aux.substring(pUrl.length()-ind,aux.length()));
+					if(arrayAux!=null||aux.length()==0) {
+						gakoak.add(hitza);
+						gakoak.addAll(arrayAux);
+						jarraitu=false;
+					}
+			}else
+				ind++;
+		}
 		return gakoak;
 	}
 
 	//Metodoak
-	public void addNondik(WebOrria pObj){
+	public void addNondik(WebOrria pObj){ //Pa meter uno si no esta
 		if(!listaNondik.contains(pObj)) listaNondik.add(pObj);
 	}
-	public void addNondik(ArrayList<WebOrria> pObj){
+	public void addNondik(ArrayList<WebOrria> pObj){ //Pa meter una lista a nondik
 		for(WebOrria obj: pObj) addNondik(obj);
 	}
 	public void addNora(WebOrria pW){
@@ -61,8 +72,8 @@ public class WebOrria implements Comparable<WebOrria>{
 	public void removeNora(ArrayList<WebOrria> pObj){
 		for(WebOrria obj: pObj) removeNora(obj);
 	}
-	public void removeGakoa(Object pObj){
-		listaGakoa.remove((WebOrria)pObj);
+	public void removeGakoa(String pObj){
+		listaGakoa.remove(pObj);
 	}
 	public void removeGakoa(ArrayList<String> pObj){
 		for(String obj: pObj) removeGakoa(obj);
@@ -83,7 +94,7 @@ public class WebOrria implements Comparable<WebOrria>{
 	public int getId(){
 		return id;
 	}
-	
+	//??????????????
 	public boolean containsNondik(WebOrria pObj){
 		return listaNondik.contains(pObj);
 	}
@@ -113,4 +124,5 @@ public class WebOrria implements Comparable<WebOrria>{
 	public int compareTo(WebOrria pW){
 		return pW.compareAlf(url);
 	}
+	
 }
