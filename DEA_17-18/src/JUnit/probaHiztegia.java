@@ -90,5 +90,4 @@ public class probaHiztegia {
 		System.out.println("Dago? " + hiztegia.contains("asdfasdfasdf"));
 		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
 	}
-
 }
