@@ -76,10 +76,17 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		return listaString;
 	}
 	
+<<<<<<< HEAD
 	public WebOrria id2Web(int pId){ //Pasas un id, y te devuelve una weborri
 		return listaWebOrri.get(pId); //donde lo busca
 	}
 	public void datuakKargatu(String pHelbidea){ //Rellenar treemap
+=======
+	public WebOrria id2Web(int pId){
+		return listaWebOrri.get(pId);
+	}
+	public void datuakKargatu(String pHelbidea){
+>>>>>>> branch 'master' of https://github.com/Kaskagues/DEA_17-18.git
 		
 		WebOrria web=null;
 		String url;
@@ -95,6 +102,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		}
 		catch(IOException e){System.out.println("Beste helbide bat sar ezazu.");}
 	}
+<<<<<<< HEAD
 	public void WebOrrienDatuakKargatu(String pHelbidea){ //WebOrri klaseko listak bete (listaNondik + listaNora)
 		int nondik;
 		int nora;
@@ -105,6 +113,18 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 				nora=Integer.parseInt(entrada.nextLine());
 				id2Web(nondik).addNora(id2Web(nora)); //addNora = meter la web de nora en listaNora de la web Nondik
 				id2Web(nora).addNondik(id2Web(nondik)); //addNondik = meter la web nondik en listaNondik de la web Nora
+=======
+	public void WebOrrienDatuakKargatu(String pHelbidea){
+		int nondik;
+		int nora;
+		try{
+			Scanner entrada= new Scanner (new FileReader (pHelbidea));
+			while(entrada.hasNext()){
+				nondik=Integer.parseInt(entrada.nextLine());
+				nora=Integer.parseInt(entrada.nextLine());
+				id2Web(nondik).addNora(id2Web(nora));
+				id2Web(nora).addNondik(id2Web(nondik));
+>>>>>>> branch 'master' of https://github.com/Kaskagues/DEA_17-18.git
 			}
 		}
 		catch(IOException e){
