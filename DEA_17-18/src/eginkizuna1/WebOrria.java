@@ -15,10 +15,10 @@ public class WebOrria implements Comparable<WebOrria>{
 	public WebOrria(String pUrl, int pId){
 		url=pUrl;
 		id=pId;
-		listaGakoa=web2Words(url,true); //Crear lista gakos en cuanto creas la weborri pa no tener que recorrer WebOrriZerrenda otra vez
+		listaGakoa=web2Words(url); //Crear lista gakos en cuanto creas la weborri pa no tener que recorrer WebOrriZerrenda otra vez
 	}
 
-	private ArrayList<String> web2Words(String pUrl,boolean ezkerretikEzkumara) {
+	private ArrayList<String> web2Words(String pUrl) {
 		//Funtzio errekurtziboa, ezkerretik ezkumara atera ahal duen hitzik handiena
 		//bilatzen duena. Hitzez hitz ateraz eta gero guztiak arrayList batean bueltatuz
 		ArrayList<String> gakoak= new ArrayList<String>(), arrayAux=null;		
@@ -27,25 +27,23 @@ public class WebOrria implements Comparable<WebOrria>{
 		boolean jarraitu=true;
 		int ind=0;
 		
-		if(ezkerretikEzkumara) {
-			while(jarraitu && !pUrl.isEmpty()&&ind<pUrl.length()) {
-				hitza=aux.substring(0,pUrl.length()-ind);
-				if(hiztegi.contains(hitza)) {
-						arrayAux=web2Words(aux.substring(pUrl.length()-ind,aux.length()),true);
-						gakoak.add(hitza);
-						gakoak.addAll(arrayAux);
-						jarraitu=false;
-				}else if(hitza.charAt(0)=='.') {
-
-					String h="."+hitza.split("\\.")[1];
-					arrayAux=web2Words(hitza.substring(h.length()),true);
-					gakoak.add(h);
+		while(jarraitu && !pUrl.isEmpty()&&ind<pUrl.length()) {
+			hitza=aux.substring(0,pUrl.length()-ind);
+			if(hiztegi.contains(hitza)) {
+					arrayAux=web2Words(aux.substring(pUrl.length()-ind,aux.length()));
+					gakoak.add(hitza);
 					gakoak.addAll(arrayAux);
 					jarraitu=false;
-				}
-				else
-					ind++;
+			}else if(hitza.charAt(0)=='.') {
+
+				String h="."+hitza.split("\\.")[1];
+				arrayAux=web2Words(hitza.substring(h.length()));
+				gakoak.add(h);
+				gakoak.addAll(arrayAux);
+				jarraitu=false;
 			}
+			else
+				ind++;
 		}
 		return gakoak;
 	}
