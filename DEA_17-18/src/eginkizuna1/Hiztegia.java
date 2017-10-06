@@ -43,7 +43,7 @@ public class Hiztegia {
 		int kop=0;
 		try{
 			Scanner entrada= new Scanner (new FileReader (pHelbidea));
-			System.out.println("whilera sartuko da...");
+			System.out.println("Hiztegian datuak kargatzen...");
 			while(entrada.hasNext()){
 				if(add(entrada.next())) kop++;
 			}

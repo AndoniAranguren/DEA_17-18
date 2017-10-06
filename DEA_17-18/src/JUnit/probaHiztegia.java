@@ -1,6 +1,12 @@
 package JUnit;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,61 +16,71 @@ import praktika1.Stopwatch;
 
 
 public class probaHiztegia {
-
-	private Hiztegia hiztegia= Hiztegia.getHiztegia();
-	private ArrayList<String> lista= new ArrayList<String>();
+	private static Hiztegia hiztegia;
+	private static ArrayList<String> lista;
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		hiztegia= Hiztegia.getHiztegia();
+		lista= new ArrayList<String>();
+	}
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		
+	}
+	@Before
+	public void setUp() throws Exception {
+		hiztegia.clear();
+	}
+	@After
+	public void tearDown() throws Exception {
+		
+	}
 	
 @Test
 	public void testEragiketaSinpleak() {
+		boolean denaOndo=true;
+		
 		System.out.println("\ntestEragiketaSinpleak========================================================");
 		System.out.println(">Add (Elementu bat)");
-		System.out.println("Ondo gehitu da? => " + hiztegia.add("atea"));
+		denaOndo=hiztegia.add("atea");
+		System.out.println("Ondo gehitu da? => " + denaOndo);
+		if(!denaOndo) fail("Add (Elementu bat)");
 		
 		System.out.println("\n>Add (Iada daukan elementua)");
-		System.out.println("Gehitu da? => " + hiztegia.add("atea"));
+		denaOndo=!hiztegia.add("atea");
+		System.out.println("Gehitu da? => " + !denaOndo);
+		if(!denaOndo) fail("Add (Iada daukan elementua)");
 		
 		System.out.println("\n>Add (ArrayList bat)");
 		lista= new ArrayList<String>(Arrays.asList("aulkia","izpilua"));
-		System.out.println("Guztiak ondo gehitu dira? => " + hiztegia.add(lista));
+		denaOndo=hiztegia.add(lista);
+		System.out.println("Guztiak ondo gehitu dira? => " + denaOndo);
+		if(!denaOndo) fail("Add (ArrayList bat)");
 		
 		System.out.println("\n>Contains (Elementua daukanean)");
-		System.out.println("Elementua dauka? => " + hiztegia.contains("atea"));
+		denaOndo=hiztegia.contains("atea");
+		System.out.println("Elementua dauka? => " + denaOndo);
+		if(!denaOndo) fail("Contains (Elementua daukanean)");
 		
 		System.out.println("\n>Remove (Daukan elementua)");
-		hiztegia.remove("atea");
-		System.out.println("Kendutako elementua du? => "+ (hiztegia.contains("atea")));
+		denaOndo=hiztegia.remove("atea");
+		System.out.println("Kendutako elementua du? => "+ denaOndo);
+		if(!denaOndo) fail("Remove (Daukan elementua)");
 		
 		System.out.println("\n>Remove (Arraylist bat)");
 		hiztegia.remove(lista);
+		denaOndo=!(hiztegia.contains("aulkia")&&hiztegia.contains("izpilua"));
 		System.out.println("Kendutako elementuak ditu? => " 
-				+ (hiztegia.contains("aulkia")&&hiztegia.contains("izpilua")));
+				+ denaOndo);
+		if(!denaOndo) fail("Remove (Daukan elementua)");
 		
 		System.out.println("\n>Contains (Lista hutsa)");
 		System.out.println("Lista hutsean elementu bat du? => " + hiztegia.contains("atea"));
 	}
-
-@Test
-	public void testDatuakKargatu(){
-		System.out.println("\ntestDatuakKargatu========================================================");
-		System.out.println(">DatuakKargatu (Lista Hutsa)");
-		hiztegia.datuakKargatu("src\\JUnit\\ListaHutsa.txt");
-		
-		System.out.println("\n>DatuakKargatu (Lista Laburra)");
-		hiztegia.datuakKargatu("src\\JUnit\\ListaLaburra.txt");
-		
-		System.out.println("\n>DatuakKargatu (Lista guztiz errepikatuta)");
-		hiztegia.datuakKargatu("src\\JUnit\\ListaLaburra.txt");
-		
-		System.out.println("\n>DatuakKargatu (Lista Luzea)");
-		Stopwatch erloju= new Stopwatch();
-		hiztegia.datuakKargatu("src\\JUnit\\ListaLuzea.txt");
-		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
-	}
-
 @Test
 	public void testEragiketaGogorrenak() {
 		System.out.println("\ntestEragiketaGogorrenak========================================================");
-		hiztegia.clear();
 		System.out.println(">DatuakKargatu (Lista Luzea)");
 		Stopwatch erloju= new Stopwatch();
 		hiztegia.datuakKargatu("src\\JUnit\\ListaLuzea.txt");
@@ -90,4 +106,22 @@ public class probaHiztegia {
 		System.out.println("Dago? " + hiztegia.contains("asdfasdfasdf"));
 		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
 	}
+@Test
+	public void testDatuakKargatu(){
+		System.out.println("\ntestDatuakKargatu========================================================");
+		System.out.println(">DatuakKargatu (Lista Hutsa)");
+		hiztegia.datuakKargatu("src\\JUnit\\fitxategiHutsa.txt");
+		
+		System.out.println("\n>DatuakKargatu (Lista Laburra)");
+		hiztegia.datuakKargatu("src\\JUnit\\hiztegiLaburra.txt");
+		
+		System.out.println("\n>DatuakKargatu (Lista guztiz errepikatuta)");
+		hiztegia.datuakKargatu("src\\JUnit\\hiztegiLaburra.txt");
+		
+		System.out.println("\n>DatuakKargatu (Lista Luzea)");
+		Stopwatch erloju= new Stopwatch();
+		hiztegia.datuakKargatu("src\\JUnit\\hiztegiLuzea.txt");
+		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
+	}
+
 }
