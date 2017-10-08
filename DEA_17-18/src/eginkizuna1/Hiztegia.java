@@ -21,32 +21,37 @@ public class Hiztegia {
 	}
 	
 	//Metodoak
-	public void add (java.util.ArrayList<String> pH){
-		hiztegia.addAll(pH);
+	public boolean add (java.util.ArrayList<String> pH){
+		return hiztegia.addAll(pH);
 	}
-	public void add (String pH){
-		hiztegia.add(pH);
+	public boolean add (String pH){
+		return hiztegia.add(pH);
 	}
-	public void remove(String pH){
-		hiztegia.remove(pH);
+	public boolean remove(java.util.ArrayList<String> pH){
+		return hiztegia.removeAll(pH);
+	}
+	public boolean remove(String pH){
+		return hiztegia.remove(pH);
 	}
 	public boolean contains(String pH) {
 		return hiztegia.contains(pH);
 	}
+	public void clear() {
+		hiztegia.clear();
+	}
 	public void datuakKargatu(String pHelbidea){
-		String hitza;
+		int kop=0;
 		try{
 			Scanner entrada= new Scanner (new FileReader (pHelbidea));
-			System.out.println("whilera sartuko da...");
+			System.out.println("Hiztegian datuak kargatzen...");
 			while(entrada.hasNext()){
-				System.out.println(".");
-				hitza=entrada.next();
-				System.out.println(hitza+"\n");
-				add(hitza);
+				if(add(entrada.next())) kop++;
 			}
 		}
 		catch(IOException e){
 			System.out.println("Sar ezazu beste helbide bat.");
-			}
+		}
+		System.out.println(kop+ " hitz kargatu dira");
+		System.out.println(hiztegia.size()+ " hitz ditu listak");
 	}
 }

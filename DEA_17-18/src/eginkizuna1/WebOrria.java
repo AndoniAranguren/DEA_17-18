@@ -19,22 +19,30 @@ public class WebOrria implements Comparable<WebOrria>{
 	}
 
 	private ArrayList<String> web2Words(String pUrl) {
+		//Funtzio errekurtziboa, ezkerretik ezkumara atera ahal duen hitzik handiena
+		//bilatzen duena. Hitzez hitz ateraz eta gero guztiak arrayList batean bueltatuz
 		ArrayList<String> gakoak= new ArrayList<String>(), arrayAux=null;		
 		Hiztegia hiztegi=Hiztegia.getHiztegia();
 		String aux=pUrl, hitza;
 		boolean jarraitu=true;
 		int ind=0;
 		
-		while(jarraitu && url.isEmpty()) {
+		while(jarraitu && !pUrl.isEmpty()&&ind<pUrl.length()) {
 			hitza=aux.substring(0,pUrl.length()-ind);
 			if(hiztegi.contains(hitza)) {
 					arrayAux=web2Words(aux.substring(pUrl.length()-ind,aux.length()));
-					if(arrayAux!=null||aux.length()==0) {
-						gakoak.add(hitza);
-						gakoak.addAll(arrayAux);
-						jarraitu=false;
-					}
-			}else
+					gakoak.add(hitza);
+					gakoak.addAll(arrayAux);
+					jarraitu=false;
+			}else if(hitza.charAt(0)=='.') {
+
+				String h="."+hitza.split("\\.")[1];
+				arrayAux=web2Words(hitza.substring(h.length()));
+				gakoak.add(h);
+				gakoak.addAll(arrayAux);
+				jarraitu=false;
+			}
+			else
 				ind++;
 		}
 		return gakoak;
@@ -94,6 +102,14 @@ public class WebOrria implements Comparable<WebOrria>{
 	public int getId(){
 		return id;
 	}
+	//WebOrriZerrenda TEST-ak egiteko
+	public void setId(int pId){
+		this.id=pId;
+	}
+	public void setUrl(String pUrl){
+		this.url=pUrl;
+	}
+	
 	//??????????????
 	public boolean containsNondik(WebOrria pObj){
 		return listaNondik.contains(pObj);
