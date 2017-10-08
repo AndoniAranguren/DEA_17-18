@@ -23,7 +23,6 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	}
 	//Metodoak
 	public void add(WebOrria pW){
-		System.out.println(".");
 		listaWebOrri.put(pW, pW);
 	}
 	public void add(java.util.ArrayList<WebOrria> pW){
@@ -35,16 +34,6 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	public void remove(java.util.ArrayList<WebOrria> pW){
 		for(WebOrria web : pW) remove(web); //no punto = this.remove o metodo creado
 	}
-	
-//	public boolean contains(String string){
-//	boolean badago=true;
-//	System.out.println(".");
-//	if (!listaWebOrri.containsKey(string)){
-//		badago=false;
-//	}
-//	return badago;
-//}
-	
 	public boolean contains(WebOrria pW){
 		return listaWebOrri.containsKey(pW);
 	}

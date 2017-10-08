@@ -39,8 +39,7 @@ public class probaWebOrria {
 
 	@After
 	public void tearDown() throws Exception {
-		w1=null;
-		w2=null;
+		
 	}
 
 	@Test

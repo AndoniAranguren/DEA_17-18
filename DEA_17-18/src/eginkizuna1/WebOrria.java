@@ -102,14 +102,6 @@ public class WebOrria implements Comparable<WebOrria>{
 	public int getId(){
 		return id;
 	}
-	//WebOrriZerrenda TEST-ak egiteko
-	public void setId(int pId){
-		this.id=pId;
-	}
-	public void setUrl(String pUrl){
-		this.url=pUrl;
-	}
-	
 	//??????????????
 	public boolean containsNondik(WebOrria pObj){
 		return listaNondik.contains(pObj);
