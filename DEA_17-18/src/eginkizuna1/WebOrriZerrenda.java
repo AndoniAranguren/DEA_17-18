@@ -96,7 +96,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		}
 		catch(IOException e){System.out.println("Beste helbide bat sar ezazu.");}
 	}
-	public void WebOrrienDatuakKargatu(String pHelbidea){ //WebOrri klaseko listak bete (listaNondik + listaNora)
+	public void webOrrienDatuakKargatu(String pHelbidea){ //WebOrri klaseko listak bete (listaNondik + listaNora)
 		int nondik;
 		int nora;
 		try{
