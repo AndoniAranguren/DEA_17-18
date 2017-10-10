@@ -3,6 +3,7 @@ package eginkizuna1;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -39,11 +40,19 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	public boolean contains(WebOrria pW){
 		return listaWebOrri.containsKey(pW);
 	}
-	public String id2String(int pId){ //Web orria lortu eta bere url-a eskatu
-		return listaWebOrri.get(pId).getUrl();
+	public String id2String(int pId){ //Web orria lortu eta bere url-a eskatu O(n)
+		Iterator<WebOrria> it=listaWebOrri.values().iterator();
+		WebOrria web= null;
+		boolean jarraitu=true;
+		while(it.hasNext()&&jarraitu) {
+			web=it.next();
+			jarraitu=!web.equals(pId);
+		}
+		return (jarraitu ? null : web.getUrl());
 	}
-	public int string2Id(String pS){ //Web orria lortu eta bere string-a eskatu
-		return listaWebOrri.get(pS).getId();
+	public int string2Id(String pS){ //Web orria lortu eta bere string-a eskatu O(1)
+		WebOrria señuelo= new WebOrria(pS, 0);
+		return listaWebOrri.get(señuelo).getId();
 	}
 	public ArrayList<String> irteerakoEstekak(String pS){
 		

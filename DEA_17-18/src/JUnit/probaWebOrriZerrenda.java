@@ -52,7 +52,6 @@ public class probaWebOrriZerrenda {
 
 	@Test
 	public void testEragiketaSinpleak(){
-		
 		System.out.println("\ntestEragiketaSinpleak========================================================");
 		System.out.println(">Add (Weborria bat)");
 		weborrizerrenda.add(w1);
@@ -71,5 +70,9 @@ public class probaWebOrriZerrenda {
 		System.out.println("\n>Remove (WebOrri lista bat)");
 		weborrizerrenda.remove(lista);
 		System.out.println(url1 +" eta "+ url2+ " orriak ezabatu al dira? " + (!weborrizerrenda.contains(w1) && !weborrizerrenda.contains(w2)));
+	
+		weborrizerrenda.add(w1);
+		System.out.println(weborrizerrenda.id2String(id1));
+		System.out.println(weborrizerrenda.string2Id(url1));
 	}
 }
