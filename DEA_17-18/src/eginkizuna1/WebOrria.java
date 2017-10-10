@@ -31,7 +31,7 @@ public class WebOrria implements Comparable<WebOrria>{
 			hitza=aux.substring(0,pUrl.length()-ind);
 			if(hiztegi.contains(hitza)) {
 					arrayAux=web2Words(aux.substring(pUrl.length()-ind,aux.length()));
-					gakoak.add(hitza);
+					if(!arrayAux.contains(hitza))gakoak.add(hitza);
 					gakoak.addAll(arrayAux);
 					jarraitu=false;
 			}else if(hitza.charAt(0)=='.') {

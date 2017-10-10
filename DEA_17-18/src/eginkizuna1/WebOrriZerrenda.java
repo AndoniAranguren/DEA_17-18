@@ -14,7 +14,9 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	private static WebOrriZerrenda nireBurua;
 	
 	//Eraikitzailea
-	private WebOrriZerrenda(){}
+	private WebOrriZerrenda(){
+		listaWebOrri= new TreeMap<WebOrria,WebOrria>();
+	}
 	
 	public static WebOrriZerrenda getWebOrriZerrenda(){
 		if(nireBurua==null)
@@ -37,10 +39,10 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	public boolean contains(WebOrria pW){
 		return listaWebOrri.containsKey(pW);
 	}
-	public String id2String(int pId){ //IMPORTANTE ENTENDER
+	public String id2String(int pId){ //Web orria lortu eta bere url-a eskatu
 		return listaWebOrri.get(pId).getUrl();
 	}
-	public int string2Id(String pS){ //IMPORTANTE ENTENDER
+	public int string2Id(String pS){ //Web orria lortu eta bere string-a eskatu
 		return listaWebOrri.get(pS).getId();
 	}
 	public ArrayList<String> irteerakoEstekak(String pS){
@@ -85,7 +87,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		WebOrria web=null;
 		String url;
 		int id;
-		try{	
+		try{
 			Scanner entrada= new Scanner (new FileReader(pHelbidea)); //Scanner solo coge string, toda la linea
 			while(entrada.hasNext()){
 				url=entrada.nextLine();

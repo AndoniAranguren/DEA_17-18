@@ -32,7 +32,6 @@ public class probaWebOrria {
 
 	@Before
 	public void setUp() throws Exception {
-
 		w1= new WebOrria(url1, id1);
 		w2= new WebOrria(url2, id2);
 	}
