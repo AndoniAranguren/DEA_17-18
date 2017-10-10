@@ -126,11 +126,11 @@ public class WebOrria implements Comparable<WebOrria>{
 	public boolean equals(WebOrria pW){
 		return pW.equals(id);
 	}
-	public int compareAlf(String pU){
+	public int compareTo(String pU){
 		return url.compareTo(pU);
 	}
 	public int compareTo(WebOrria pW){
-		return pW.compareAlf(url);
+		return pW.compareTo(url);
 	}
 	
 }

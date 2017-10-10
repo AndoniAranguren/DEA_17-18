@@ -58,7 +58,6 @@ public class probaWebOrriZerrenda {
 
 	@Test
 	public void testEragiketaSinpleak(){
-		
 		System.out.println("\ntestEragiketaSinpleak========================================================");
 		System.out.println(">Add (Weborria bat)");
 		weborrizerrenda.add(w1);

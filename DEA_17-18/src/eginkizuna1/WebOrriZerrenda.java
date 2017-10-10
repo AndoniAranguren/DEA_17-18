@@ -3,6 +3,7 @@ package eginkizuna1;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.Iterator;
@@ -40,23 +41,26 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	public boolean contains(WebOrria pW){
 		return listaWebOrri.containsKey(pW);
 	}
-	
+
 	//Ezin da get() bat egin treemapearen key klasekoa ez dez ezerekin
-	public String id2String(int pId){ //Id-a pasa, Web orria lortu eta bere url-a eskatu. Honek treemapa ateratzen du, array baten bihurtuz id-al konparatu ahal izateko.
+	public String id2String(int pId){ //Id-a pasa, Web orria lortu eta bere url-a eskatu O(n). Honek treemapa ateratzen du, array baten bihurtuz id-al konparatu ahal izateko.
 		Iterator<WebOrria> it=listaWebOrri.values().iterator();
 		WebOrria web= null;
-		boolean jarraitu= true;
-		while(it.hasNext()&&jarraitu){
+		boolean jarraitu=true;
+		while(it.hasNext()&&jarraitu) {
 			web=it.next();
 			jarraitu=!web.equals(pId);
 		}
-		return (jarraitu ? null: web.getUrl());
+		return (jarraitu ? null : web.getUrl());
+
 	}
 	
-	public int string2Id(String pS){ //Url-a pasa, Web orria lortu eta bere string-a eskatu. Hnek weborrien string-ak[url] konparatzen ditu
-		WebOrria aux= new WebOrria(pS, 0);
-		return listaWebOrri.get(aux).getId();
+
+	public int string2Id(String pS){ ////Url-a pasa, Web orria lortu eta bere string-a eskatu O(1). Hnek weborrien string-ak[url] konparatzen ditu
+		WebOrria señuelo= new WebOrria(pS, 0);
+		return listaWebOrri.get(señuelo).getId();
 	}
+	
 	public ArrayList<String> irteerakoEstekak(String pS){
 		
 		ArrayList<String> listaString= null;
