@@ -31,13 +31,13 @@ public class WebOrria implements Comparable<WebOrria>{
 			hitza=aux.substring(0,pUrl.length()-ind);
 			if(hiztegi.contains(hitza)) {
 					arrayAux=web2Words(aux.substring(pUrl.length()-ind,aux.length()));
-					gakoak.add(hitza);
+					if(!arrayAux.contains(hitza))gakoak.add(hitza);
 					gakoak.addAll(arrayAux);
 					jarraitu=false;
-			}else if(hitza.charAt(0)=='.') {
+			}else if(hitza.charAt(0)=='.') {//Hitzaren 0 posizioan "." dago.
 
-				String h="."+hitza.split("\\.")[1];
-				arrayAux=web2Words(hitza.substring(h.length()));
+				String h="."+hitza.split("\\.")[1];//adbz: ".com.de" -tik lehenengo "com" hartzen du eta ".com" usten du -> split: separar donde encuentre tal
+				arrayAux=web2Words(hitza.substring(h.length()));// gero ".com.de"-tik ".com" partea kentzen du, ".de" bidaltzen du arrayaux bezela -> substring: cortar en tal numero.
 				gakoak.add(h);
 				gakoak.addAll(arrayAux);
 				jarraitu=false;
@@ -47,7 +47,7 @@ public class WebOrria implements Comparable<WebOrria>{
 		}
 		return gakoak;
 	}
-
+	
 	//Metodoak
 	public void addNondik(WebOrria pObj){ //Pa meter uno si no esta
 		if(!listaNondik.contains(pObj)) listaNondik.add(pObj);

@@ -3,57 +3,73 @@ package JUnit;
 import static org.junit.Assert.*;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import eginkizuna1.WebOrria;
+import eginkizuna1.Hiztegia;
 import eginkizuna1.WebOrriZerrenda;
 
 import java.util.ArrayList;
 
 public class probaWebOrriZerrenda {
 	
-	private static WebOrriZerrenda weborrizerrenda;
+	private static WebOrriZerrenda weborrizerrenda= WebOrriZerrenda.getWebOrriZerrenda();
 	
-	private WebOrria weborria0;
-	private WebOrria weborria1;
+	private static WebOrria w1,w2;
+	private static String url1,url2;
+	private static int id1,id2;
 	private ArrayList<WebOrria> lista;
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		Hiztegia.getHiztegia().datuakKargatu("src\\JUnit\\hiztegiLuzea.txt");
+		url1= "007waystomakemoney.com";
+		id1 = 12345;
+		url2= "009al3ab.com.es.de";
+		id2 = 99999;
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
 	
 	@Before
 	public void setUp() throws Exception {
-		weborria0= new WebOrria("willyrex.com",1);
-		weborria1= new WebOrria("staxx.com",2);
+		w1= new WebOrria(url1, id1);
+		w2= new WebOrria(url2, id2);
 		lista= new ArrayList<WebOrria>();
-		
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		weborria0=null;
-		weborria1=null;
+		w1=null;
+		w2=null;
 		lista=null;
 	}
 
 	@Test
-
 	public void testEragiketaSinpleak(){
 		
 		System.out.println("\ntestEragiketaSinpleak========================================================");
 		System.out.println(">Add (Weborria bat)");
-		weborrizerrenda.add(weborria0);
-		System.out.println("Gehitu egin den konprobatzeko contains erabliko dugu => ");
-		System.out.println("\nwillyrex.com orria gehitu al da?" + weborrizerrenda.contains(weborria0));
-		System.out.println("\nOrain sartu dugun weborria listatik ezabatuko dugu.");
-		weborrizerrenda.remove(weborria0);
-		System.out.println("\nwillyrex.com orria ezabatu al da?" + weborrizerrenda.contains(weborria0));
+		weborrizerrenda.add(w1);
+		System.out.println(url1 +" orria gehitu al da? " + weborrizerrenda.contains(w1));
+		
+		System.out.println("\n>Remove (Weborria bat)\"");
+		weborrizerrenda.remove(w1);
+		System.out.println( url1 +" orria ezabatu al da? " + !weborrizerrenda.contains(w1));
 		
 		System.out.println("\n>Add (WebOrri lista bat)"); //?
-		lista.add(1, weborria0);
-		lista.add(2, weborria1);
+		lista.add(w1);
+		lista.add(w2);
 		weborrizerrenda.add(lista);
-		System.out.println("Gehitu egin den konprobatzeko contains erabliko dugu => ");
-		System.out.println("\nwillyrex.com orria gehitu al da?" + weborrizerrenda.contains(weborria0) + weborrizerrenda.contains(weborria1));
-		System.out.println("\nOrain sartu dugun weborri lista ezabatuko dugu.");
+		System.out.println( url1 +" orria gehitu al da? " + (weborrizerrenda.contains(w1) && weborrizerrenda.contains(w2)));
+		
+		System.out.println("\n>Remove (WebOrri lista bat)");
 		weborrizerrenda.remove(lista);
-		System.out.println("\nwillyrex.com eta staxx.com orriak ezabatu al dira?" + weborrizerrenda.contains(weborria0) + weborrizerrenda.contains(weborria1));
+		System.out.println(url1 +" eta "+ url2+ " orriak ezabatu al dira? " + (!weborrizerrenda.contains(w1) && !weborrizerrenda.contains(w2)));
 	}
+}
