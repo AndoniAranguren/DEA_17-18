@@ -97,10 +97,10 @@ public class WebOrria implements Comparable<WebOrria>{
 		return listaGakoa;
 	}
 	public String getUrl(){
-		return url;
+		return (this.url);
 	}
 	public int getId(){
-		return id;
+		return (this.id);
 	}
 	//??????????????
 	public boolean containsNondik(WebOrria pObj){
