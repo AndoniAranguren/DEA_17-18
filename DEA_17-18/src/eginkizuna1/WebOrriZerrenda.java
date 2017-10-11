@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.Iterator;
 
 public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Atributuak
@@ -46,10 +47,12 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 
 		return (web==null ? null : web.getUrl());	// [(x)? (x true bada) : (x false bada)]
 	}
-	public int string2Id(String pS){ //Web orria lortu eta bere string-a eskatu O(logn)
+	public int string2Id(String pS){ //Web orria lortu eta bere string-a eskatu O(logn). Hnek weborrien string-ak[url] konparatzen ditu
+		//Ezin da get() bat egin treemapearen key klasekoa ez dez ezerekin
 		WebOrria señuelo= new WebOrria(pS, 0);
 		return listaWebOrri.get(señuelo).getId();
 	}
+	
 	public ArrayList<String> irteerakoEstekak(String pS){
 		
 		ArrayList<String> listaString= null;
@@ -93,6 +96,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		}
 		return (jarraitu ? null : web);
 	}
+	
 	public void datuakKargatu(String pHelbidea){ //Rellenar treemap
 		WebOrria web=null;
 		String url;
