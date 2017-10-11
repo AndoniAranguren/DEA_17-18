@@ -127,7 +127,7 @@ public class WebOrria implements Comparable<WebOrria>{
 		return pW.equals(id);
 	}
 	public int compareTo(String pU){
-		return url.compareTo(pU);
+		return pU.compareTo(url);
 	}
 	public int compareTo(WebOrria pW){
 		return pW.compareTo(url);
