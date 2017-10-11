@@ -83,7 +83,7 @@ public class probaHiztegia {
 		System.out.println("\ntestEragiketaGogorrenak========================================================");
 		System.out.println(">DatuakKargatu (Lista Luzea)");
 		Stopwatch erloju= new Stopwatch();
-		hiztegia.datuakKargatu("src\\JUnit\\ListaLuzea.txt");
+		hiztegia.datuakKargatu("src\\JUnit\\hiztegiLuzea.txt");
 		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
 
 		System.out.println("\n>Contains (Hasieran dagoen elementua)");
