@@ -1,15 +1,18 @@
 package eginkizuna1;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class WebOrria implements Comparable<WebOrria>{
 	//Atributuak
 	private String url;
 	private int id;
 	
-	private ArrayList<WebOrria> listaNondik = new ArrayList<WebOrria>();
-	private ArrayList<WebOrria> listaNora = new ArrayList<WebOrria>();
-	private ArrayList<String> listaGakoa= new ArrayList<String>();
+	//ArrayList best for get from an index
+	//LinkedList best for iteration or adding
+	private LinkedList<WebOrria> listaNondik = new LinkedList<WebOrria>();
+	private LinkedList<WebOrria> listaNora = new LinkedList<WebOrria>();
+	private LinkedList<String> listaGakoa= new LinkedList<String>();
 	
 	//Eraikitzailea
 	public WebOrria(String pUrl, int pId){
@@ -18,32 +21,24 @@ public class WebOrria implements Comparable<WebOrria>{
 		listaGakoa=web2Words(url); //Crear lista gakos en cuanto creas la weborri pa no tener que recorrer WebOrriZerrenda otra vez
 	}
 
-	private ArrayList<String> web2Words(String pUrl) {
-		//Funtzio errekurtziboa, ezkerretik ezkumara atera ahal duen hitzik handiena
-		//bilatzen duena. Hitzez hitz ateraz eta gero guztiak arrayList batean bueltatuz
-		ArrayList<String> gakoak= new ArrayList<String>(), arrayAux=null;		
+	private LinkedList<String> web2Words(String pUrl) {
+		//Ezkerretik ezkumara atera ahal duen hitz guztiak
+		//bilatzen duena. Hitzez hitz ateraz eta gero guztiak List batean bueltatuz
+		LinkedList<String> gakoak= new LinkedList<String>();		
 		Hiztegia hiztegi=Hiztegia.getHiztegia();
-		String aux=pUrl, hitza;
-		boolean jarraitu=true;
-		int ind=0;
-		
-		while(jarraitu && !pUrl.isEmpty()&&ind<pUrl.length()) {
-			hitza=aux.substring(0,pUrl.length()-ind);
-			if(hiztegi.contains(hitza)||(hitza.length()==1)) {
-					arrayAux=web2Words(aux.substring(pUrl.length()-ind,aux.length()));
-					if(!arrayAux.contains(hitza))gakoak.add(hitza);
-					gakoak.addAll(arrayAux);
-					jarraitu=false;
-			}else if(hitza.charAt(0)=='.') { //Hitzaren 0 posizioan "." dago.
+		String[] urlMoztuta=pUrl.split("\\.");
+		String hitza;
 
-				String h="."+hitza.split("\\.")[1]; //adbz: ".com.de" -tik lehenengo "com" hartzen du eta ".com" usten du -> split: separar donde encuentre tal
-				arrayAux=web2Words(hitza.substring(h.length())); // gero ".com.de"-tik ".com" partea kentzen du, ".de" bidaltzen du arrayaux bezela -> substring: cortar en tal numero.
-				gakoak.add(h);
-				gakoak.addAll(arrayAux);
-				jarraitu=false;
+		for(int ind=0; ind<urlMoztuta[0].length()-1; ind++) {
+			for(int ind2=ind; ind2<urlMoztuta[0].length()-1; ind2++) {
+				hitza=urlMoztuta[0].substring(ind, ind2);
+				if(hiztegi.contains(hitza)) {//||(hitza.length()==1)) {
+					if(!gakoak.contains(hitza))gakoak.add(hitza);
+				}
 			}
-			else
-				ind++;
+		}
+		for(int ind=1; ind<urlMoztuta.length; ind++) {
+			gakoak.add("." + urlMoztuta[ind]);
 		}
 		return gakoak;
 	}
@@ -52,48 +47,48 @@ public class WebOrria implements Comparable<WebOrria>{
 	public void addNondik(WebOrria pObj){ //Pa meter uno si no esta
 		if(!listaNondik.contains(pObj)) listaNondik.add(pObj);
 	}
-	public void addNondik(ArrayList<WebOrria> pObj){ //Pa meter una lista a nondik
+	public void addNondik(List<WebOrria> pObj){ //Pa meter una lista a nondik
 		for(WebOrria obj: pObj) addNondik(obj);
 	}
 	public void addNora(WebOrria pW){
 		if(!listaNora.contains(pW)) listaNora.add(pW);
 	}
-	public void addNora(ArrayList<WebOrria> pObj){
+	public void addNora(List<WebOrria> pObj){
 		for(WebOrria obj: pObj) addNora(obj);
 	}
 	public void addGakoa(String pObj){
 		if(!listaGakoa.contains(pObj)) listaGakoa.add(pObj);
 	}
-	public void addGakoa(ArrayList<String> pObj){
+	public void addGakoa(List<String> pObj){
 		for(String obj: pObj) addGakoa(obj);
 	}
 	
 	public void removeNondik(Object pObj){
 		listaNondik.remove((WebOrria)pObj);
 	}
-	public void removeNondik(ArrayList<WebOrria> pObj){
+	public void removeNondik(List<WebOrria> pObj){
 		for(WebOrria obj: pObj) removeNondik(obj);
 	}
 	public void removeNora(Object pObj){
 		listaNora.remove((WebOrria)pObj);
 	}
-	public void removeNora(ArrayList<WebOrria> pObj){
+	public void removeNora(List<WebOrria> pObj){
 		for(WebOrria obj: pObj) removeNora(obj);
 	}
 	public void removeGakoa(String pObj){
 		listaGakoa.remove(pObj);
 	}
-	public void removeGakoa(ArrayList<String> pObj){
+	public void removeGakoa(List<String> pObj){
 		for(String obj: pObj) removeGakoa(obj);
 	}
 	
-	public ArrayList<WebOrria> getNondik(){
+	public LinkedList<WebOrria> getNondik(){
 		return listaNondik;
 	}
-	public ArrayList<WebOrria> getNora(){
+	public LinkedList<WebOrria> getNora(){
 		return listaNora;
 	}
-	public ArrayList<String> getGakoa(){
+	public LinkedList<String> getGakoa(){
 		return listaGakoa;
 	}
 	public String getUrl(){
