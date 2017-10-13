@@ -139,13 +139,15 @@ public class probaWebOrriZerrenda {
 		erloju= new Stopwatch();
 		System.out.println("\n>DatuakKargatu (Lista Laburra)");
 		weborrizerrenda.datuakKargatu("src\\JUnit\\indexLaburra.txt");
+		weborrizerrenda.webOrrienDatuakKargatu("src\\JUnit\\pdl-arcLaburra.txt");
 		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
 		
-//		erloju= new Stopwatch();
+		erloju= new Stopwatch();
 //		System.out.println("\n>DatuakKargatu (Lista Luzea)");
 //		weborrizerrenda.datuakKargatu("src\\JUnit\\indexLuzea.txt");
 //		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
 		
 		System.out.println(Hiztegia.getHiztegia().word2Webs("edit"));
+		System.out.println(weborrizerrenda.irteerakoEstekak(Hiztegia.getHiztegia().word2Webs("edit").get(0)));
 	}
 }

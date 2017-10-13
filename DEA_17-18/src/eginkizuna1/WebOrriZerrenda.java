@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -12,6 +13,7 @@ import java.util.TreeMap;
 public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Atributuak
 	private TreeMap<WebOrria,WebOrria> listaWebOrri;
+	private HashMap<Integer, WebOrria> listaHashWebOrri;
 	//Treemap WebOrriak index moduan eta WebOrrietara apuntatuz erraz atera ahal da id2String eta string2Id
 	//Gainera oso azkarra izango da, eta memoriako puntu berera apuntatzen dutenez ez dute memoria extrarik xahutuko
 	private static WebOrriZerrenda nireBurua;
@@ -19,6 +21,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Eraikitzailea
 	private WebOrriZerrenda(){
 		listaWebOrri= new TreeMap<WebOrria,WebOrria>();
+		listaHashWebOrri= new HashMap<Integer,WebOrria>();
 	}
 	
 	public static WebOrriZerrenda getWebOrriZerrenda(){
@@ -93,14 +96,15 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		return lista;
 	}
 	private WebOrria id2Web(int pId){ //Web orria lortu O(n)
-		WebOrria web=null;
-		Iterator<WebOrria> iterator = listaWebOrri.values().iterator();
-		boolean jarraitu = true;
-		while(jarraitu && iterator.hasNext()) { //Gako hori daukan url-ak atera
-			web=iterator.next();
-			if(web.equals(pId)) jarraitu=false;
-		}
-		return (!jarraitu? web : null);
+//		WebOrria web=null;
+//		Iterator<WebOrria> iterator = listaWebOrri.values().iterator();
+//		boolean jarraitu = true;
+//		while(jarraitu && iterator.hasNext()) { //Gako hori daukan url-ak atera
+//			web=iterator.next();
+//			if(web.equals(pId)) jarraitu=false;
+//		}
+//		return (!jarraitu? web : null);
+		return listaHashWebOrri.get(pId);
 	}
 	private WebOrria string2Web(String pS){ //Web orria lortu O(logn). Hnek weborrien string-ak[url] konparatzen ditu
 		//Ezin da get() bat egin treemapearen key klasekoa ez dez ezerekin
@@ -130,6 +134,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 				}
 				linea=entrada.nextLine();
 				web= new WebOrria(linea.split(" ")[0],Integer.parseInt(linea.split(" ")[1]));
+				listaHashWebOrri.put(web.getId(), web);
 				add(web);
 				kop++;
 			}
@@ -162,8 +167,8 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 				linea=entrada.nextLine();
 				nondik=Integer.parseInt(linea.split(" ")[0]);
 				nora=Integer.parseInt(linea.split(" ")[1]);
-				id2Web(nondik).addNora(id2Web(nora)); //addNora = meter la web de nora en listaNora de la web Nondik
-				id2Web(nora).addNondik(id2Web(nondik)); //addNondik = meter la web nondik en listaNondik de la web Nora
+				listaHashWebOrri.get(nondik).addNora(listaHashWebOrri.get(nora)); //addNora = meter la web de nora en listaNora de la web Nondik
+				listaHashWebOrri.get(nora).addNora(listaHashWebOrri.get(nondik)); //addNondik = meter la web nondik en listaNondik de la web Nora
 			}
 		}
 		catch(IOException e){
