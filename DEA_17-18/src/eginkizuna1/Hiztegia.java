@@ -2,17 +2,22 @@ package eginkizuna1;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Hiztegia {
 	//Atributuak
 	private HashSet<String> hiztegia;
+	private HashMap<String,LinkedList<WebOrria>> lista;
 	private static Hiztegia nireBurua;
 	
 	//Eraikitzailea
 	private Hiztegia(){
 		hiztegia=new HashSet<String>();
+		lista= new HashMap<String,LinkedList<WebOrria>>();
 	}
 	public static Hiztegia getHiztegia(){
 		if(nireBurua==null)
@@ -21,11 +26,31 @@ public class Hiztegia {
 	}
 	
 	//Metodoak
-	public boolean add (java.util.ArrayList<String> pH){
-		return hiztegia.addAll(pH);
+	public void addWebOrria(LinkedList<String> pH, WebOrria pWeb){
+		LinkedList<WebOrria> aux;
+		for(String hitza: pH) {
+			aux=lista.get(hitza);
+			if(aux==null) {
+				aux=new LinkedList<WebOrria>();
+			}
+			aux.add(pWeb);
+			lista.put(hitza, aux);
+		}
+	}
+	public ArrayList<String> word2Webs(String pHitza){
+		ArrayList<String> array= null;
+		if(hiztegia.contains(pHitza)) {
+			array= new ArrayList<String>();
+			for(WebOrria web :lista.get(pHitza))
+				array.add(web.getUrl());
+		}
+		return array;
 	}
 	public boolean add (String pH){
 		return hiztegia.add(pH);
+	}
+	public boolean add (java.util.List<String> pH){
+		return hiztegia.addAll(pH);
 	}
 	public boolean remove(java.util.ArrayList<String> pH){
 		return hiztegia.removeAll(pH);

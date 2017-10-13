@@ -20,9 +20,9 @@ public class probaWebOrriZerrenda {
 	
 	private static WebOrriZerrenda weborrizerrenda= WebOrriZerrenda.getWebOrriZerrenda();
 	
-	private static WebOrria w1,w2, w3;
-	private static String url1,url2, url3;
-	private static int id1,id2,id3;
+	private static WebOrria w1,w2;
+	private static String url1,url2;
+	private static int id1,id2;
 	
 	
 	@BeforeClass
@@ -32,11 +32,8 @@ public class probaWebOrriZerrenda {
 		id1 = 12345;
 		url2= "009al3ab.com.es.de";
 		id2 = 99999;
-		url3= "oliverbenji.com";
-		id3 = 10101;
 		w1= new WebOrria(url1, id1);
 		w2= new WebOrria(url2, id2);
-		w3= new WebOrria(url3, id3);
 	}
 
 	@AfterClass
@@ -49,6 +46,7 @@ public class probaWebOrriZerrenda {
 
 	@After
 	public void tearDown() throws Exception {
+		weborrizerrenda.clear();
 	}
 
 	@Test
@@ -57,10 +55,12 @@ public class probaWebOrriZerrenda {
 		System.out.println(">Add (Weborria bat)");
 		weborrizerrenda.add(w1);
 		System.out.println(url1 +" orria gehitu al da? " + weborrizerrenda.contains(w1));
+		if(!weborrizerrenda.contains(w1))fail("Ez da "+w1+" gehitu");
 		
 		System.out.println("\n>Remove (Weborria bat)\"");
 		weborrizerrenda.remove(w1);
 		System.out.println( url1 +" orria ezabatu al da? " + !weborrizerrenda.contains(w1));
+		if(weborrizerrenda.contains(w1))fail("Ez da "+w1+" kendu");
 		
 		System.out.println("\n>Add (WebOrri lista bat)"); //?
 		ArrayList<WebOrria> lista= new ArrayList<WebOrria>();
@@ -68,24 +68,34 @@ public class probaWebOrriZerrenda {
 		lista.add(w2);
 		weborrizerrenda.add(lista);
 		System.out.println( url1 +" orria gehitu al da? " + (weborrizerrenda.contains(w1) && weborrizerrenda.contains(w2)));
+		if(!(weborrizerrenda.contains(w1)&&weborrizerrenda.contains(w2)))fail("Ez da "+lista+" gehitu");
 		
 		System.out.println("\n>Remove (WebOrri lista bat)");
 		weborrizerrenda.remove(lista);
 		System.out.println(url1 +" eta "+ url2+ " orriak ezabatu al dira? " + (!weborrizerrenda.contains(w1) && !weborrizerrenda.contains(w2)));	
-		
-		System.out.println("\n>Add (Weborria bat)");
-		weborrizerrenda.add(w3);
-		System.out.println(url3 +" orria gehitu al da? " + weborrizerrenda.contains(w3));
-		
-		System.out.println("\n>id2String (Id bat emanda, url eskatu)");
-		System.out.println(weborrizerrenda.id2String(id3));
-		
-		System.out.println("\n>string2Id (Url bat emanda, id eskatu)");
-		System.out.println(weborrizerrenda.string2Id(url3));
+		if(weborrizerrenda.contains(w1)&&weborrizerrenda.contains(w2))fail("Ez da "+lista+" kendu");
 	}
 	
 	@Test
-	public void webOrdenatuta() {
+	public void testId2String() {
+		System.out.println("\n>id2String (Id bat emanda, url eskatu)=====================");
+		weborrizerrenda.add(w1);
+		System.out.println(weborrizerrenda.id2String(id1));
+		if(!weborrizerrenda.id2String(w1.getId()).equals(w1.getUrl()))
+				fail("Ez da "+w1.getId()+" ondo lortu");
+	}
+	@Test
+	public void testString2Id() {
+		System.out.println("\n>string2Id (Url bat emanda, id eskatu)=====================");
+		weborrizerrenda.add(w1);
+		System.out.println(weborrizerrenda.string2Id(url1));
+		if(weborrizerrenda.string2Id(w1.getUrl())!=(w1.getId()))
+				fail("Ez da "+w1.getUrl()+" ondo lortu");
+	}
+
+	
+	@Test
+	public void testWebOrdenatuta() {
 		
 		System.out.println("\nwebOrdenatuta========================================================");
 		String izena1,izena2;
@@ -116,29 +126,26 @@ public class probaWebOrriZerrenda {
 			fail("Lehenengoa bigarrena baino handiagoa da");
 		}
 	}
-	@Test
-	public void testEragiketaKonplex(){
-		System.out.println("\ntestEragiketaKonplex========================================================");
-		System.out.println("\n>Add (Weborria bat)");
-		weborrizerrenda.add(w3);
-		System.out.println(url3 +" orria gehitu al da? " + weborrizerrenda.contains(w3));
-		System.out.println("\n>id2Web (Id bat emanda, weborria eskatu)");
-		System.out.println(weborrizerrenda.id2Web(id3));
-	}
 	
 	@Test
 	public void testKargatu(){
-		Stopwatch erloju= new Stopwatch();
 		
+		Stopwatch erloju= new Stopwatch();
 		System.out.println("\ntestDatuakKargatu========================================================");
 		System.out.println(">DatuakKargatu (Lista Hutsa)");
-		
-		
-		System.out.println("\n>DatuakKargatu (Lista Laburra)");
-		weborrizerrenda.datuakKargatu("src\\JUnit\\smallindex.txt");
-		
-		System.out.println("\n>DatuakKargatu (Lista Luzea)");
-		
+		weborrizerrenda.datuakKargatu("src\\JUnit\\fitxategiHutsa.txt");
 		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
+
+		erloju= new Stopwatch();
+		System.out.println("\n>DatuakKargatu (Lista Laburra)");
+		weborrizerrenda.datuakKargatu("src\\JUnit\\indexLaburra.txt");
+		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
+		
+//		erloju= new Stopwatch();
+//		System.out.println("\n>DatuakKargatu (Lista Luzea)");
+//		weborrizerrenda.datuakKargatu("src\\JUnit\\indexLuzea.txt");
+//		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
+		
+		System.out.println(Hiztegia.getHiztegia().word2Webs("edit"));
 	}
 }
