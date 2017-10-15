@@ -19,7 +19,6 @@ public class WebOrria implements Comparable<WebOrria>{
 		id=pId;
 		Hiztegia.getHiztegia().addWebOrria(getGakoa(),this);
 	}
-
 	private LinkedList<String> web2Words(String pUrl) {
 		//Ezkerretik ezkumara atera ahal duen hitz guztiak
 		//bilatzen duena. Hitzez hitz ateraz eta gero guztiak List batean bueltatuz
@@ -46,29 +45,15 @@ public class WebOrria implements Comparable<WebOrria>{
 	public void addNondik(WebOrria pObj){ //Pa meter uno si no esta
 		if(!listaNondik.contains(pObj)) listaNondik.add(pObj);
 	}
-	public void addNondik(List<WebOrria> pObj){ //Pa meter una lista a nondik
-		for(WebOrria obj: pObj) addNondik(obj);
-	}
 	public void addNora(WebOrria pW){
 		if(!listaNora.contains(pW)) listaNora.add(pW);
 	}
-	public void addNora(List<WebOrria> pObj){
-		for(WebOrria obj: pObj) addNora(obj);
-	}
-	
 	public void removeNondik(Object pObj){
 		listaNondik.remove((WebOrria)pObj);
-	}
-	public void removeNondik(List<WebOrria> pObj){
-		for(WebOrria obj: pObj) removeNondik(obj);
 	}
 	public void removeNora(Object pObj){
 		listaNora.remove((WebOrria)pObj);
 	}
-	public void removeNora(List<WebOrria> pObj){
-		for(WebOrria obj: pObj) removeNora(obj);
-	}
-	
 	public LinkedList<WebOrria> getNondik(){
 		return listaNondik;
 	}
@@ -84,7 +69,6 @@ public class WebOrria implements Comparable<WebOrria>{
 	public int getId(){
 		return (this.id);
 	}
-
 	public boolean containsNondik(WebOrria pObj){
 		return listaNondik.contains(pObj);
 	}
@@ -94,7 +78,6 @@ public class WebOrria implements Comparable<WebOrria>{
 	public boolean containsGakoa(String pObj){
 		return web2Words(url).contains(pObj);
 	}
-	
 	public boolean equals(int pI){ 
 		//Deskribapena: Id-etik String-a ateratzeko
 		//Aurrebaldintza: Id batek beti url berdina izatea, eta alderantziz. Url eta id-ak ez errepikatzea
@@ -114,5 +97,4 @@ public class WebOrria implements Comparable<WebOrria>{
 	public int compareTo(WebOrria pW){
 		return pW.compareTo(url)*(-1);//Bider -1 buelta ematen diolako
 	}
-	
 }

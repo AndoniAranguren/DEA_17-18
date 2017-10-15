@@ -42,6 +42,10 @@ public class probaHiztegia {
 		boolean denaOndo=true;
 		
 		System.out.println("\ntestEragiketaSinpleak========================================================");
+
+		System.out.println("\n>Contains (Lista hutsa)");
+		System.out.println("Lista hutsean elementu bat du? => " + hiztegia.contains("atea"));
+		
 		System.out.println(">Add (Elementu bat)");
 		denaOndo=hiztegia.add("atea");
 		System.out.println("Ondo gehitu da? => " + denaOndo);
@@ -62,21 +66,7 @@ public class probaHiztegia {
 		denaOndo=hiztegia.contains("atea");
 		System.out.println("Elementua dauka? => " + denaOndo);
 		if(!denaOndo) fail("Contains (Elementua daukanean)");
-		
-		System.out.println("\n>Remove (Daukan elementua)");
-		denaOndo=hiztegia.remove("atea");
-		System.out.println("Kendutako elementua du? => "+ denaOndo);
-		if(!denaOndo) fail("Remove (Daukan elementua)");
-		
-		System.out.println("\n>Remove (Arraylist bat)");
-		hiztegia.remove(lista);
-		denaOndo=!(hiztegia.contains("aulkia")&&hiztegia.contains("izpilua"));
-		System.out.println("Kendutako elementuak ditu? => " 
-				+ denaOndo);
-		if(!denaOndo) fail("Remove (Daukan elementua)");
-		
-		System.out.println("\n>Contains (Lista hutsa)");
-		System.out.println("Lista hutsean elementu bat du? => " + hiztegia.contains("atea"));
+				
 	}
 @Test
 	public void testEragiketaGogorrenak() {
