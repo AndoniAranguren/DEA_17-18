@@ -73,23 +73,6 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		
 		return listaString;
 	}
-	public ArrayList<String> word2Webs(String pS){
-		ArrayList<String> listaString=null;
-		if(Hiztegia.getHiztegia().contains(pS)) {
-			LinkedList<WebOrria> listaWeb= new LinkedList<WebOrria>(listaWebOrri.values()); //Treemap alf-ki ordenatu batetik LinkedList batera
-			listaString= new ArrayList<String>(); 
-			
-			for(WebOrria web: listaWeb) //Gako hori daukan url-ak atera
-				if(web.containsGakoa(pS))
-					listaString.add(web.getUrl());
-		}
-		return listaString;
-	}
-	public ArrayList<String> web2Words(String pUrl){ //Pasas una url, y te devuelve sus gakos
-		WebOrria web= new WebOrria(pUrl, 0);
-		ArrayList<String> lista= new ArrayList<String>(web.getGakoa());
-		return lista;
-	}
 	private WebOrria id2Web(int pId){ //Web orria lortu O(1)
 		return listaIdWebOrri.get(pId);
 	}

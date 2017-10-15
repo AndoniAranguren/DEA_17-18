@@ -24,20 +24,22 @@ public class WebOrria implements Comparable<WebOrria>{
 		//bilatzen duena. Hitzez hitz ateraz eta gero guztiak List batean bueltatuz
 		LinkedList<String> gakoak= new LinkedList<String>();		
 		Hiztegia hiztegi=Hiztegia.getHiztegia();
-		String[] urlMoztuta=pUrl.split("\\.");
-		String hitza;
-
-		for(int ind=0; ind<=urlMoztuta[0].length(); ind++) {
-			for(int ind2=ind; ind2<=urlMoztuta[0].length(); ind2++) {
-				hitza=urlMoztuta[0].substring(ind, ind2);
-				if(hiztegi.contains(hitza)) {//||(hitza.length()==1)) {
-					if(!gakoak.contains(hitza))gakoak.add(hitza);
+		if(pUrl.contains("\\.")) {
+			String[] urlMoztuta=pUrl.split("\\.");
+			String hitza;
+	
+			for(int ind=0; ind<=urlMoztuta[0].length(); ind++) {
+				for(int ind2=ind; ind2<=urlMoztuta[0].length(); ind2++) {
+					hitza=urlMoztuta[0].substring(ind, ind2);
+					if(hiztegi.contains(hitza)) {//||(hitza.length()==1)) {
+						if(!gakoak.contains(hitza))gakoak.add(hitza);
+					}
 				}
 			}
+	//		for(int ind=1; ind<urlMoztuta.length; ind++) {
+	//			gakoak.add("." + urlMoztuta[ind]);
+	//		}
 		}
-//		for(int ind=1; ind<urlMoztuta.length; ind++) {
-//			gakoak.add("." + urlMoztuta[ind]);
-//		}
 		return gakoak;
 	}
 

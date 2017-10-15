@@ -79,6 +79,8 @@ public class probaHiztegia {
 		System.out.println(web.getGakoa());
 		if(!hiztegia.word2Webs("e").contains(web.getUrl())) fail("Ez da ondo gehitu");
 		
+		System.out.println(">word2Web (Elementu bat)");
+		if(!hiztegia.word2Webs("e").contains(web.getUrl())) fail("Ez da ondo gehitu"); //word2Web-ren froga bat da ere
 	}
 @Test
 	public void testEragiketaGogorrenak() {
