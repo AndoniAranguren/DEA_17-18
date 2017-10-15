@@ -79,9 +79,6 @@ public class probaHiztegia {
 		System.out.println(web.getGakoa());
 		if(!hiztegia.word2Webs("e").contains(web.getUrl())) fail("Ez da ondo gehitu");
 		
-		System.out.println(">AddWebOrria (Hutsa)");
-		hiztegia.addWebOrria(new java.util.LinkedList<String>(),null);
-		
 	}
 @Test
 	public void testEragiketaGogorrenak() {

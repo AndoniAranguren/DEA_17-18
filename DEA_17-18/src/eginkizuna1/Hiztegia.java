@@ -65,7 +65,7 @@ public class Hiztegia {
 			while(entrada.hasNext()){
 				hitza= entrada.next();
 				if(!contains(hitza)) {
-					add(entrada.next());
+					add(hitza);
 					kop++;
 				}
 			}

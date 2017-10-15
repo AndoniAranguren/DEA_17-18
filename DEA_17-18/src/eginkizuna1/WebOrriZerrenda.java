@@ -13,7 +13,7 @@ import java.util.TreeMap;
 public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Atributuak
 	private TreeMap<WebOrria,WebOrria> listaWebOrri;
-	private ArrayList<WebOrria> listaArrayWebOrri;
+	private HashMap<Integer,WebOrria> listaIdWebOrri;
 	//Treemap WebOrriak index moduan eta WebOrrietara apuntatuz erraz atera ahal da id2String eta string2Id
 	//Gainera oso azkarra izango da, eta memoriako puntu berera apuntatzen dutenez ez dute memoria extrarik xahutuko
 	private static WebOrriZerrenda nireBurua;
@@ -21,7 +21,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Eraikitzailea
 	private WebOrriZerrenda(){
 		listaWebOrri= new TreeMap<WebOrria,WebOrria>();
-		listaArrayWebOrri= new ArrayList<WebOrria>();
+		listaIdWebOrri= new HashMap<Integer,WebOrria>();
 	}
 	public static WebOrriZerrenda getWebOrriZerrenda(){
 		if(nireBurua==null)
@@ -31,6 +31,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Metodoak
 	public void add(WebOrria pW){
 		listaWebOrri.put(pW, pW);
+		listaIdWebOrri.put(pW.getId(), pW);
 	}
 	public void add(List<WebOrria> pW){
 		for(WebOrria web : pW) add(web); //WebOrri = tipo de dato (int, string... en este caso la clase) web = ind (nombre del indize)
@@ -90,7 +91,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		return lista;
 	}
 	private WebOrria id2Web(int pId){ //Web orria lortu O(1)
-		return listaArrayWebOrri.get(pId);
+		return listaIdWebOrri.get(pId);
 	}
 	private WebOrria string2Web(String pS){ //Web orria lortu O(logn). Hnek weborrien string-ak[url] konparatzen ditu
 		//Ezin da get() bat egin treemapearen key klasekoa ez dez ezerekin
@@ -119,9 +120,8 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 				}
 				linea=entrada.nextLine();
 				web= new WebOrria(linea.split(" ")[0],Integer.parseInt(linea.split(" ")[1]));
-				listaArrayWebOrri.add(web.getId(),web);
-//				listaArrayWebOrri.set(web.getId(), web); 
 				add(web);
+//				listaArrayWebOrri.set(web.getId(), web); 
 				kop++;
 			}
 			if(loading)System.out.println("]");
@@ -165,8 +165,8 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 				linea=entrada.nextLine();
 				nondik=Integer.parseInt(linea.split(" ")[0]);
 				nora=Integer.parseInt(linea.split(" ")[1]);
-				listaArrayWebOrri.get(nondik).addNora(listaArrayWebOrri.get(nora)); //addNora = meter la web de nora en listaNora de la web Nondik
-				listaArrayWebOrri.get(nora).addNora(listaArrayWebOrri.get(nondik)); //addNondik = meter la web nondik en listaNondik de la web Nora
+				listaIdWebOrri.get(nondik).addNora(listaIdWebOrri.get(nora)); //addNora = meter la web de nora en listaNora de la web Nondik
+				listaIdWebOrri.get(nora).addNora(listaIdWebOrri.get(nondik)); //addNondik = meter la web nondik en listaNondik de la web Nora
 				kop++;
 			}
 

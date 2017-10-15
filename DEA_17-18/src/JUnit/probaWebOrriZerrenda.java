@@ -81,7 +81,7 @@ public class probaWebOrriZerrenda {
 		System.out.println("\n>id2String (Id bat emanda, url eskatu)=====================");
 		weborrizerrenda.add(w1);
 		System.out.println(weborrizerrenda.id2String(id1));
-		if(!weborrizerrenda.id2String(w1.getId()).equals(w1.getUrl()))
+		if(!weborrizerrenda.id2String(w1.getId())  .equals(w1.getUrl()))
 				fail("Ez da "+w1.getId()+" ondo lortu");
 	}
 	@Test
@@ -148,7 +148,7 @@ public class probaWebOrriZerrenda {
 		weborrizerrenda.webOrrienDatuakKargatu("src\\JUnit\\pdl-arcLuzea.txt");
 		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
 		
-		System.out.println(Hiztegia.getHiztegia().word2Webs("edit"));
-		System.out.println(weborrizerrenda.irteerakoEstekak(Hiztegia.getHiztegia().word2Webs("edit").get(0)));
+		System.out.println(Hiztegia.getHiztegia().word2Webs("zombie"));
+		System.out.println(weborrizerrenda.irteerakoEstekak(Hiztegia.getHiztegia().word2Webs("zombie").get(0)));
 	}
 }
