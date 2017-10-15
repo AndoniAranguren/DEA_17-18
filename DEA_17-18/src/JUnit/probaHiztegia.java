@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import eginkizuna1.Hiztegia;
+import eginkizuna1.WebOrria;
 import praktika1.Stopwatch;
 
 
@@ -47,18 +48,19 @@ public class probaHiztegia {
 		System.out.println("Lista hutsean elementu bat du? => " + hiztegia.contains("atea"));
 		
 		System.out.println(">Add (Elementu bat)");
-		denaOndo=hiztegia.add("atea");
+		hiztegia.add("atea");
+		denaOndo=hiztegia.contains("atea");
 		System.out.println("Ondo gehitu da? => " + denaOndo);
 		if(!denaOndo) fail("Add (Elementu bat)");
 		
-		System.out.println("\n>Add (Iada daukan elementua)");
-		denaOndo=!hiztegia.add("atea");
-		System.out.println("Gehitu da? => " + !denaOndo);
-		if(!denaOndo) fail("Add (Iada daukan elementua)");
-		
 		System.out.println("\n>Add (ArrayList bat)");
 		lista= new ArrayList<String>(Arrays.asList("aulkia","izpilua"));
-		denaOndo=hiztegia.add(lista);
+		hiztegia.add(lista);
+		denaOndo=true;
+		for(String s: lista) {
+			if(denaOndo)
+				denaOndo=hiztegia.contains(s);
+		}
 		System.out.println("Guztiak ondo gehitu dira? => " + denaOndo);
 		if(!denaOndo) fail("Add (ArrayList bat)");
 		
@@ -67,6 +69,19 @@ public class probaHiztegia {
 		System.out.println("Elementua dauka? => " + denaOndo);
 		if(!denaOndo) fail("Contains (Elementua daukanean)");
 				
+		System.out.println(">AddWebOrria (Hutsa)");
+		hiztegia.addWebOrria(new java.util.LinkedList<String>(),null);
+		
+		System.out.println(">AddWebOrria (Elementu bat)");
+		hiztegia.add("e");
+		hiztegia.add("a");
+		WebOrria web=new WebOrria("ea", 2); //WebOrriaren eraikitzaileak AddWebOrriari deitzen du
+		System.out.println(web.getGakoa());
+		if(!hiztegia.word2Webs("e").contains(web.getUrl())) fail("Ez da ondo gehitu");
+		
+		System.out.println(">AddWebOrria (Hutsa)");
+		hiztegia.addWebOrria(new java.util.LinkedList<String>(),null);
+		
 	}
 @Test
 	public void testEragiketaGogorrenak() {

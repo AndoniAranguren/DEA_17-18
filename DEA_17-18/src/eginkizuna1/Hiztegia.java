@@ -43,16 +43,12 @@ public class Hiztegia {
 		}
 		return array;
 	}
-	public boolean add (String pH){
-		return hiztegia.put(pH, null)!=null;
+	public void add (String pH){
+		hiztegia.put(pH, null);
 	}
-	public boolean add (java.util.List<String> pH){
-		boolean denaOndo=true;
-		for(String hitza: pH) {
-			if(denaOndo)
-				denaOndo=add(hitza);
-		}
-		return denaOndo;
+	public void add (java.util.List<String> pH){
+		for(String hitza: pH)
+			add(hitza);
 	}
 	public boolean contains(String pH) {
 		return hiztegia.containsKey(pH);
@@ -62,11 +58,16 @@ public class Hiztegia {
 	}
 	public void datuakKargatu(String pHelbidea){
 		int kop=0;
+		String hitza;
 		try{
 			Scanner entrada= new Scanner (new FileReader (pHelbidea));
 			System.out.println("Hiztegian datuak kargatzen...");
 			while(entrada.hasNext()){
-				if(add(entrada.next())) kop++;
+				hitza= entrada.next();
+				if(!contains(hitza)) {
+					add(entrada.next());
+					kop++;
+				}
 			}
 		}
 		catch(IOException e){

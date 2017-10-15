@@ -145,6 +145,7 @@ public class probaWebOrriZerrenda {
 		erloju= new Stopwatch();
 		System.out.println("\n>DatuakKargatu (Lista Luzea)");
 		weborrizerrenda.datuakKargatu("src\\JUnit\\indexLuzea.txt");
+		weborrizerrenda.webOrrienDatuakKargatu("src\\JUnit\\pdl-arcLuzea.txt");
 		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
 		
 		System.out.println(Hiztegia.getHiztegia().word2Webs("edit"));
