@@ -30,17 +30,10 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		T elem=null;
 		Node<T> current=null;
 		Node<T> last=first.prev;
-		if (first.next==null){ //listan elementu bakarra
+		if (first.next==first){ //listan elementu bakarra
 			elem=first.data;
 			first=null;
 		}
-//		else{                        BI ELEMENTU LISTAN SOILIK
-//			last=first.prev;
-//			current=first.next;
-//			elem=current.data;
-//			last.next=null;
-//			current.prev=null;
-//		}
 		else{ 				//Puntero batek lista borobila izatean berari apunta dakioke .next eta .prev - ekin?
 			elem=first.data;
 			current=first.next;
@@ -58,7 +51,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		T elem=null;
 		Node<T> current=null;
 		Node<T> last=first.prev;
-		if (first.next==null){ //listan elementu bakarra
+		if (first.next==first){ //listan elementu bakarra
 			elem=first.data; 
 			first=null;
 		}
@@ -84,7 +77,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		boolean agerpen=false;
 		while (kont!=count && agerpen==false){
 			if (current.data==elem){
-				if (first.next==null){ //listan elementu bakarra 
+				if (first.next==first){ //listan elementu bakarra 
 					first=null;
 					agerpen=true;
 				}
@@ -94,6 +87,10 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 					current.prev=last;
 					agerpen=true;
 				}
+//				else if (first.data==elem){
+//					removeFirst();
+//					agerpen=true;
+//				}
 				else if (current.next==first){ //listako azkenengo elementua
 					current=current.prev;
 					current.next=first;
@@ -102,7 +99,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 				} //listako beste elementuak
 				aux=aux.prev;
 				aux.next=current.next;
-				current=current.next; //si borras el current queda en el limbo??
+				current=current.next; 
 				current.prev=aux;
 				agerpen=true;
 			}
@@ -129,7 +126,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 
 	public boolean contains(T elem) {
 	// Egiazkoa bueltatuko du aurkituz gero, eta false bestela
-		Node<T> current=first;
+		Node<T> current=null;
 		Node<T> last=first.prev;
 		int kont=0;
 		boolean aurkituta=false;
@@ -154,7 +151,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	public T find(T elem) {
 	// Elementua bueltatuko du aurkituz gero, eta null bestela
 		return (contains(elem)? elem : null);
-	}
+	} 	//O(n)
 
 	public boolean isEmpty() 
 	{ return first == null;};
@@ -171,12 +168,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		   T elem;
 		   
 		   public boolean hasNext(){
-			   if (current.next==first){
-				   return false;
-			   }
-			   else{
-				   return true;
-			   }
+			   return (current.next!=first);
 		   }
 		   
 		   public T next(){
