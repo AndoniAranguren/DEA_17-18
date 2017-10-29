@@ -68,8 +68,8 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	public T remove(T elem) { 	
 	// Aurrebaldintza: zerrenda ez da hutsa
 	// Balio hori listan baldin badago, bere lehen agerpena ezabatuko dut. Kendutako objektuaren erreferentzia 
-        
-		//  bueltatuko du (null ez baldin badago)
+	//  bueltatuko du (null ez baldin badago)
+		
 		Node<T> current=null;
 		Node<T> aux=null;
 		Node<T> last=first.prev;
@@ -77,20 +77,10 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		boolean agerpen=false;
 		while (kont!=count && agerpen==false){
 			if (current.data==elem){
-				if (first.next==first){ //listan elementu bakarra 
-					first=null;
+				if (current==first){
+					removeFirst();
 					agerpen=true;
 				}
-				else if (current==first){ //listako lehenengo elementua da
-					current=current.next;
-					last.next=current; 
-					current.prev=last;
-					agerpen=true;
-				}
-//				else if (first.data==elem){
-//					removeFirst();
-//					agerpen=true;
-//				}
 				else if (current.next==first){ //listako azkenengo elementua
 					current=current.prev;
 					current.next=first;
@@ -107,7 +97,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 			aux=aux.next;
 			kont++;
 		}
-		return elem;
+		return (agerpen? elem : null);
 	} 	// O(n)
 
 	public T first() {
