@@ -39,6 +39,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 			current=first.next;
 			last.next=current; 
 			current.prev=last;
+			first=current;
 		}
 		return elem;
 	} // O(1)
