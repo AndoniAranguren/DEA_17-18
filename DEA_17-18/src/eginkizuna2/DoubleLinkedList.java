@@ -34,7 +34,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 			elem=first.data;
 			first=null;
 		}
-		else{ 				//Puntero batek lista borobila izatean berari apunta dakioke .next eta .prev - ekin?
+		else{ 				//Puntero batek lista borobila izatean berari apuntatzen da .next eta .prev - ekin
 			elem=first.data;
 			current=first.next;
 			last.next=current; 
@@ -46,8 +46,6 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	public T removeLast() {
 	// listako azken elementua kendu da
 	// Aurrebaldintza: zerrenda ez da hutsa
-		
-		//CASO DE 2 ELEMENTOS??
 		T elem=null;
 		Node<T> current=null;
 		Node<T> last=first.prev;
@@ -69,10 +67,8 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	// Aurrebaldintza: zerrenda ez da hutsa
 	// Balio hori listan baldin badago, bere lehen agerpena ezabatuko dut. Kendutako objektuaren erreferentzia 
 	//  bueltatuko du (null ez baldin badago)
-		
 		Node<T> current=null;
 		Node<T> aux=null;
-		Node<T> last=first.prev;
 		int kont=0;
 		boolean agerpen=false;
 		while (kont!=count && agerpen==false){
@@ -100,6 +96,10 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		return (agerpen? elem : null);
 	} 	// O(n)
 
+	//Si tengo un current en T remove y esta apuntando al nodo numero 3(ejemplo) 
+	// y llamo a un metodo que tiene current en null, luego al volver al programa principal 
+	//el current vuelve a estar donde antes(nodo 3) o pasa a estar null?
+	
 	public T first() {
 	// listako lehen elementua ematen du
 	      if (isEmpty())
@@ -154,11 +154,18 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 
 	   // an iterator, doesn't implement remove() since it's optional 
 	   private class ListIterator implements Iterator<T> { 
+		   private int i=0;
 		   Node<T> current=null;
 		   T elem;
 		   
 		   public boolean hasNext(){
-			   return (current.next!=first);
+			   if (isEmpty() || i==count){
+				   return false;
+			   }
+			   else{
+				   i++;
+				   return true;
+			   }
 		   }
 		   
 		   public T next(){
