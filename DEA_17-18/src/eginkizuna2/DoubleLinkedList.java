@@ -33,6 +33,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		if (first.next==first){ //listan elementu bakarra
 			elem=first.data;
 			first=null;
+			count--;
 		}
 		else{ 				//Puntero batek lista borobila izatean berari apuntatzen da .next eta .prev - ekin
 			elem=first.data;
@@ -40,6 +41,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 			last.next=current; 
 			current.prev=last;
 			first=current;
+			count--;
 		}
 		return elem;
 	} // O(1)
@@ -53,12 +55,14 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		if (first.next==first){ //listan elementu bakarra
 			elem=first.data; 
 			first=null;
+			count--;
 		}
 		else{
 			elem=last.data;
 			current=last.prev;
 			current.next=first; 
 			first.prev=current;
+			count--;
 		}
 		return elem;
     }	// O(1)
@@ -83,12 +87,14 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 					current.next=first;
 					first.prev=current;
 					agerpen=true;
+					count--;
 				} //listako beste elementuak
 				aux=aux.prev;
 				aux.next=current.next;
 				current=current.next; 
 				current.prev=aux;
 				agerpen=true;
+				count--;
 			}
 			current=current.next;
 			aux=aux.next;

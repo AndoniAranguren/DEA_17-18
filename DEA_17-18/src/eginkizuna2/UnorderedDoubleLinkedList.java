@@ -10,12 +10,18 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 	public void addToFront(T elem) {
 	// hasieran gehitu
 		Node<T> sartu=new Node<T> (elem) ;
-		if (first.equals(null)) first=sartu;
+		if (first==null){ 
+			first=sartu;
+			first.next=first;
+			first.prev=first;
+		count++;
+		}
 		else{
 			sartu.next=first;
 			sartu.prev=first.prev;
 			first.prev=sartu;
 			first=sartu;
+			count++;
 		}
 	}
 
@@ -27,14 +33,16 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 			sartu.next=first;
 			sartu.prev=first.prev;
 			first.prev.next=sartu;
-			first.prev=sartu;			
+			first.prev=sartu;
+			count++;
 		}
 	}
 	
 	public void addAfter(T elem, T target) {
 		// KODEA OSATU ETA KOSTUA KALKULATU (AUKERAZKOA)
 		Node<T> sartu=new Node<T> (elem) ;
-		if(first.equals(null)) first=sartu;
+		if(first.equals(null)){ first=sartu;
+		count++;}
 		else{
 			Node<T> current= first.next;
 			while(!current.data.equals(target)&&!current.equals(first)){
@@ -48,6 +56,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 					sartu.prev=current;
 					current.next.prev=sartu;
 					current.next=sartu;
+					count++;
 				}
 			}
 		}
