@@ -6,6 +6,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 	private String deskr;  // deskribapena
 	private int count;
 	
+
 	
 	public void addToFront(T elem) {
 	// hasieran gehitu
@@ -14,7 +15,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 			first=sartu;
 			first.next=first;
 			first.prev=first;
-		count++;
+			count++;
 		}
 		else{
 			sartu.next=first;
@@ -28,7 +29,12 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 	public void addToRear(T elem) {
 	// bukaeran gehitu
 		Node<T> sartu=new Node<T> (elem) ;
-		if (first.equals(null)) first=sartu;
+		if (first==null){
+			first=sartu;
+			first.next=first;
+			first.prev=first;
+			count++;
+		}
 		else{
 			sartu.next=first;
 			sartu.prev=first.prev;
@@ -41,7 +47,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 	public void addAfter(T elem, T target) {
 		// KODEA OSATU ETA KOSTUA KALKULATU (AUKERAZKOA)
 		Node<T> sartu=new Node<T> (elem) ;
-		if(first.equals(null)){ first=sartu;
+		if(first==null){ first=sartu;
 		count++;}
 		else{
 			Node<T> current= first.next;

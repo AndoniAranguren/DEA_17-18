@@ -6,7 +6,11 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 		// KODEA OSATU ETA KOSTUA KALKULATU
 		Node<T> sartu= new Node<T>(elem);
 		boolean sartuta=false;
-		if (first.equals(null)) first=sartu; //error aqui
+		if (first==null){
+			first=sartu;
+			first.next=sartu;
+			first.prev=sartu;
+		}
 		else if(first.data.hashCode()>sartu.data.hashCode()){//lehenengoa
 			sartu.next=first;
 			sartu.prev=first.prev;

@@ -124,25 +124,28 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	public boolean contains(T elem) {
 	// Egiazkoa bueltatuko du aurkituz gero, eta false bestela
 		Node<T> current=null;
-		Node<T> last=first.prev;
-		int kont=0;
-		boolean aurkituta=false;
-		if (isEmpty()){
-			return false;
+		if (first!=null){
+			Node<T> last=first.prev;
+			int kont=0;
+			boolean aurkituta=false;
+			if (isEmpty()){
+				return false;
+			}
+			else{
+			     while (kont!=count && aurkituta==false){
+			    	 if (last.data==elem){ //azkenengo elementua da
+			 			aurkituta=true;
+			    	 }
+			    	 else if (current.data==elem){
+			    		 aurkituta=true;
+			    	 }
+			    	 current=current.next;
+			    	 kont++;
+			     }
+			   }
+			return aurkituta;
 		}
-		else{
-		     while (kont!=count && aurkituta==false){
-		    	 if (last.data==elem){ //azkenengo elementua da
-		 			aurkituta=true;
-		    	 }
-		    	 else if (current.data==elem){
-		    		 aurkituta=true;
-		    	 }
-		    	 current=current.next;
-		    	 kont++;
-		     }
-		   }
-		return aurkituta;
+		else return false;
 	}	//O(n)
 
 	public T find(T elem) {
