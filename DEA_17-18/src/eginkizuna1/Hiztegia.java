@@ -7,16 +7,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import eginkizuna2.OrderedDoubleLinkedList;
+import eginkizuna2.UnorderedDoubleLinkedList;
 
 public class Hiztegia {
 	//Atributuak
-	private HashMap<String,OrderedDoubleLinkedList<WebOrria>> hiztegia;
+	private HashMap<String,UnorderedDoubleLinkedList<WebOrria>> hiztegia;
 	private static Hiztegia nireBurua;
 	
 	//Eraikitzailea
 	private Hiztegia(){
-		hiztegia= new HashMap<String,OrderedDoubleLinkedList<WebOrria>>();
+		hiztegia= new HashMap<String,UnorderedDoubleLinkedList<WebOrria>>();
 	}
 	public static Hiztegia getHiztegia(){
 		if(nireBurua==null)
@@ -26,13 +26,13 @@ public class Hiztegia {
 	
 	//Metodoak
 	public void addWebOrria(LinkedList<String> pH, WebOrria pWeb){
-		OrderedDoubleLinkedList<WebOrria> aux;
+		UnorderedDoubleLinkedList<WebOrria> aux;
 		for(String hitza: pH) {
 			aux=hiztegia.get(hitza);
 			if(aux==null) {
-				aux=new OrderedDoubleLinkedList<WebOrria>();
+				aux=new UnorderedDoubleLinkedList<WebOrria>();
 			}
-			aux.add(pWeb);
+			aux.addToFront(pWeb);
 			hiztegia.put(hitza, aux);
 		}
 	}
