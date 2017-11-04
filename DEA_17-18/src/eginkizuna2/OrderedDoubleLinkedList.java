@@ -44,6 +44,4 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 		}
 		if (!sartuta) System.out.println("Sartu nahi duzun datua badago jada listan.");
 	}
-
-
 }
