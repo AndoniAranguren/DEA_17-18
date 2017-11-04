@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class DoubleLinkedList<T> implements ListADT<T> {
 
-	// Atributuak
+//	 Atributuak
 	protected Node<T> first; // lehenengoaren erreferentzia
 	protected String deskr;  // deskribapena
 	protected int count;
@@ -28,19 +28,16 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	// listako lehen elementua kendu da
 	// Aurrebaldintza: zerrenda ez da hutsa
 		T elem=null;
-		Node<T> current=null;
-		Node<T> last=first.prev;
-		if (first.next==first){ //listan elementu bakarra
+		if (first.next.equals(first)){ //listan elementu bakarra
 			elem=first.data;
 			first=null;
 			count--;
 		}
-		else{ 				//Puntero batek lista borobila izatean berari apuntatzen da .next eta .prev - ekin
+		else{ //Puntero batek lista borobila izatean berari apuntatzen da .next eta .prev - ekin
 			elem=first.data;
-			current=first.next;
-			last.next=current; 
-			current.prev=last;
-			first=current;
+			first.prev.next=first.next;
+			first.next.prev=first.prev;
+			first=first.next;
 			count--;
 		}
 		return elem;
@@ -52,7 +49,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		T elem=null;
 		Node<T> current=null;
 		Node<T> last=first.prev;
-		if (first.next==first){ //listan elementu bakarra
+		if (first.next.equals(first)){ //listan elementu bakarra
 			elem=first.data; 
 			first=null;
 			count--;
@@ -72,35 +69,32 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	// Aurrebaldintza: zerrenda ez da hutsa
 	// Balio hori listan baldin badago, bere lehen agerpena ezabatuko dut. Kendutako objektuaren erreferentzia 
 	//  bueltatuko du (null ez baldin badago)
-		Node<T> current=null;
-		Node<T> aux=null;
+		Node<T> current=first;
 		int kont=0;
-		boolean agerpen=false;
-		while (kont!=count && agerpen==false){
-			if (current.data==elem){
-				if (current==first){
-					removeFirst();
-					agerpen=true;
-				}
-				else if (current.next==first){ //listako azkenengo elementua
-					current=current.prev;
-					current.next=first;
-					first.prev=current;
-					agerpen=true;
+		boolean aurkitua=false;
+		if (first!=null){
+			while (kont<count && aurkitua==false){
+				if (current.data==elem){
+					if (current.equals(first)){
+						removeFirst();
+						aurkitua=true;
+					}
+					else if (current.next.equals(first)){ //listako azkenengo elementua
+						current.prev.next=first;
+						first.prev=current.prev;
+						aurkitua=true;
+						count--;
+					}
+					current.prev.next=current.next;
+					current.next.prev=current.prev; 
+					aurkitua=true;
 					count--;
-				} //listako beste elementuak
-				aux=aux.prev;
-				aux.next=current.next;
-				current=current.next; 
-				current.prev=aux;
-				agerpen=true;
-				count--;
+				}
+				current=current.next;
+				kont++;
 			}
-			current=current.next;
-			aux=aux.next;
-			kont++;
 		}
-		return (agerpen? elem : null);
+		return (aurkitua? elem : null);
 	} 	// O(n)
 
 	//Si tengo un current en T remove y esta apuntando al nodo numero 3(ejemplo) 
@@ -123,7 +117,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 
 	public boolean contains(T elem) {
 	// Egiazkoa bueltatuko du aurkituz gero, eta false bestela
-		Node<T> current=null;
+		Node<T> current=first;
 		if (first!=null){
 			Node<T> last=first.prev;
 			int kont=0;
@@ -133,10 +127,10 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 			}
 			else{
 			     while (kont!=count && aurkituta==false){
-			    	 if (last.data==elem){ //azkenengo elementua da
+			    	 if (last.data.equals(elem)){ //azkenengo elementua da
 			 			aurkituta=true;
 			    	 }
-			    	 else if (current.data==elem){
+			    	 else if (current.data.equals(elem)){
 			    		 aurkituta=true;
 			    	 }
 			    	 current=current.next;
@@ -165,13 +159,11 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	   // an iterator, doesn't implement remove() since it's optional 
 	   private class ListIterator implements Iterator<T> { 
 		   private int i=0;
-		   Node<T> current=null;
+		   Node<T> current=first;
 		   T elem;
 		   
 		   public boolean hasNext(){
-			   if (isEmpty() || i==count){
-				   return false;
-			   }
+			   if (isEmpty() || i==count) return false;
 			   else{
 				   i++;
 				   return true;
@@ -183,8 +175,10 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 				   throw new NoSuchElementException();
 			   }
 			   else{
-				   elem=current.data;
-				   current=current.next;
+				   if(current!=null) {
+					   elem=current.data;
+					   current=current.next;
+				   }
 			   }
 			   return elem;
 		   }
@@ -204,10 +198,15 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		public String toString() {
 			String result = new String();
 			Iterator<T> it = iterator();
-			while (it.hasNext()) {
-				T elem = it.next();
-				result = result + "[" + elem.toString() + "] \n";
-			}	
+			try{
+				while (it.hasNext()) {
+					T elem = it.next();
+					result = result + "[" + elem.toString() + "] \n";
+				}	
+			}
+			catch(Exception e){
+				System.out.println("Errorea eman da toString metodoan.");;
+			}
 			return "SimpleLinkedList " + result + "]";
 		}
 

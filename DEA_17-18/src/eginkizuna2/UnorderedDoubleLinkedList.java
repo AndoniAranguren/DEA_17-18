@@ -2,11 +2,9 @@ package eginkizuna2;
 
 public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements UnorderedListADT<T> {
 	
-	private Node<T> first; // lehenengoaren erreferentzia
-	private String deskr;  // deskribapena
-	private int count;
-	
-
+//	private Node<T> first; // lehenengoaren erreferentzia
+//	private String deskr;  // deskribapena
+//	private int count;
 	
 	public void addToFront(T elem) {
 	// hasieran gehitu
@@ -18,6 +16,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 			count++;
 		}
 		else{
+			System.out.println("-");
 			sartu.next=first;
 			sartu.prev=first.prev;
 			first.prev=sartu;

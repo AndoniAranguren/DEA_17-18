@@ -23,7 +23,7 @@ public class PruebaOrderedDoubleLinkedList {
 			System.out.println("Proba Find ...............");
 			System.out.println("20? " + l.find(20));
 			System.out.println("9? " + l.find(9));
-			System.out.println("9? " + l.find(9));
+			System.out.println("2? " + l.find(2));
 			System.out.println("0? " + l.find(0));
 			System.out.println("7? " + l.find(7));
 			
@@ -41,12 +41,13 @@ public class PruebaOrderedDoubleLinkedList {
 
 			
 			System.out.print(" Lista ...............");
+			
 			l2.adabegiakInprimatu();
 			System.out.println(" Elementu-kopurua: " + l2.size());
 					
 			
 			System.out.println("Proba Find ...............");
-			System.out.println("2222? " + l2.find(new Pertsona("", "2222")));
+			System.out.println("2222? " + l2.find(new Pertsona("pedro", "2222")));
 			System.out.println("5555? " + l2.find(new Pertsona("", "5555")));
 			System.out.println("7777? " + l2.find(new Pertsona("", "7777")));	
 			System.out.println("8888? " + l2.find(new Pertsona("", "8888")));	
