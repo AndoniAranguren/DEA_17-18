@@ -163,9 +163,8 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		   T elem;
 		   
 		   public boolean hasNext(){
-			   if (isEmpty() || i==count) return false;
+			   if (isEmpty() || i>=count) return false;
 			   else{
-				   i++;
 				   return true;
 			   }
 		   }
@@ -179,6 +178,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 					   elem=current.data;
 					   current=current.next;
 				   }
+				   i++;
 			   }
 			   return elem;
 		   }
@@ -190,7 +190,10 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		
 		
 		public void adabegiakInprimatu() {
-			System.out.println(this.toString());
+			Iterator<T> it= this.iterator();
+			while(it.hasNext()) {
+				System.out.print(it.next()+" ");
+			}
 		}
 
 		
@@ -201,13 +204,13 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 			try{
 				while (it.hasNext()) {
 					T elem = it.next();
-					result = result + "[" + elem.toString() + "] \n";
+					result = result + "[" + elem.toString() + "] ";
 				}	
 			}
 			catch(Exception e){
 				System.out.println("Errorea eman da toString metodoan.");;
 			}
-			return "SimpleLinkedList " + result + "]";
+			return "SimpleLinkedList Size: "+size()+"\n" + result;
 		}
 
 }
