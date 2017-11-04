@@ -7,14 +7,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import eginkizuna2.OrderedDoubleLinkedList;
+
 public class Hiztegia {
 	//Atributuak
-	private HashMap<String,LinkedList<WebOrria>> hiztegia;
+	private HashMap<String,OrderedDoubleLinkedList<WebOrria>> hiztegia;
 	private static Hiztegia nireBurua;
 	
 	//Eraikitzailea
 	private Hiztegia(){
-		hiztegia= new HashMap<String,LinkedList<WebOrria>>();
+		hiztegia= new HashMap<String,OrderedDoubleLinkedList<WebOrria>>();
 	}
 	public static Hiztegia getHiztegia(){
 		if(nireBurua==null)
@@ -24,11 +26,11 @@ public class Hiztegia {
 	
 	//Metodoak
 	public void addWebOrria(LinkedList<String> pH, WebOrria pWeb){
-		LinkedList<WebOrria> aux;
+		OrderedDoubleLinkedList<WebOrria> aux;
 		for(String hitza: pH) {
 			aux=hiztegia.get(hitza);
 			if(aux==null) {
-				aux=new LinkedList<WebOrria>();
+				aux=new OrderedDoubleLinkedList<WebOrria>();
 			}
 			aux.add(pWeb);
 			hiztegia.put(hitza, aux);
@@ -36,10 +38,12 @@ public class Hiztegia {
 	}
 	public ArrayList<String> word2Webs(String pHitza){
 		ArrayList<String> array= null;
+		java.util.Iterator<WebOrria> it= hiztegia.get(pHitza).iterator();
 		if(hiztegia.containsKey(pHitza)) {
 			array= new ArrayList<String>();
-			for(WebOrria web :hiztegia.get(pHitza))
-				array.add(web.getUrl());
+			while(it.hasNext()) {
+				array.add(it.next().getUrl());
+			}
 		}
 		return array;
 	}
