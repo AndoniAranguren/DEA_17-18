@@ -10,6 +10,7 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 			first=sartu;
 			first.next=sartu;
 			first.prev=sartu;
+			sartuta=true;
 		}
 		else if(first.data.hashCode()>sartu.data.hashCode()){//lehenengoa
 			sartu.next=first;
@@ -42,6 +43,11 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 				count++;
 			}
 		}
-		if (!sartuta) System.out.println("Sartu nahi duzun datua badago jada listan.");
+			try {
+				if (!sartuta)
+					throw new Exception();
+			} catch (Exception e) {
+				System.err.println(elem.hashCode()+" badago listan");
+			}
 	}
 }

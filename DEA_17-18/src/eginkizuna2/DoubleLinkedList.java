@@ -69,29 +69,28 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	// Aurrebaldintza: zerrenda ez da hutsa
 	// Balio hori listan baldin badago, bere lehen agerpena ezabatuko dut. Kendutako objektuaren erreferentzia 
 	//  bueltatuko du (null ez baldin badago)
-		Node<T> current=first;
+		Node<T> current=first,aux;
 		int kont=0;
 		boolean aurkitua=false;
 		if (first!=null){
-			while (kont<count && aurkitua==false){
-				if (current.data==elem){
-					if (current.equals(first)){
+			while (kont<=count && aurkitua==false){
+				if (current.data.hashCode()==elem.hashCode()){
+					if (current.equals(first)){ //Lehenengoa
 						removeFirst();
-						aurkitua=true;
 					}
 					else if (current.next.equals(first)){ //listako azkenengo elementua
-						current.prev.next=first;
-						first.prev=current.prev;
-						aurkitua=true;
+						removeLast();
+					}else {
+						current.prev.next=current.next;
+						current.next.prev=current.prev; 
 						count--;
 					}
-					current.prev.next=current.next;
-					current.next.prev=current.prev; 
 					aurkitua=true;
-					count--;
+				}else {
+					current=current.next;
+					kont++;
+					
 				}
-				current=current.next;
-				kont++;
 			}
 		}
 		return (aurkitua? elem : null);
@@ -126,7 +125,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 				return false;
 			}
 			else{
-			     while (kont!=count && aurkituta==false){
+			     while (kont<count && aurkituta==false){
 			    	 if (last.data.equals(elem)){ //azkenengo elementua da
 			 			aurkituta=true;
 			    	 }
