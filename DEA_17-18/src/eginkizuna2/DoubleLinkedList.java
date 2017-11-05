@@ -159,7 +159,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 	}
 	
 	/**
-	This method says if pElement is in the list
+	This method says if pElement is in the list or not
 	@param pElement is the T value that is being searched
 	@return Returns true if pElement in the list or false if it isn't
 	@throws Exception When the list is empty, it returns false
@@ -212,10 +212,20 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		}else
 			return (contains(pElement)? pElement : null);
 	}
-
+	
+	/**
+	This method says if the list is empty
+	@return Returns true if it's empty, false if not
+	@Cost_Function The cost is O(1)
+	*/
 	public boolean isEmpty() 
 	{ return first == null;};
 	
+	/**
+	This method returns the size of the list
+	@return Returns an int with the size
+	@Cost_Function The cost is O(1)
+	*/
 	public int size() 
 	{ return count;}
 	
@@ -255,7 +265,12 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 			   throw new UnsupportedOperationException("an iterator, doesn't implement remove() since it's optional");
 		   }
 	   } // private class
-		
+	
+	/**
+	This method gives information about the string
+	@return Returns a string with the information of the list
+	@Cost_Function The cost is O(n)
+	*/	
 	@Override
 	public String toString() {
 			String result = new String();
