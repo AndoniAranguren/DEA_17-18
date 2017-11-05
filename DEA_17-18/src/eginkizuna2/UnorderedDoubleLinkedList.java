@@ -63,8 +63,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 				first.prev=sartu;
 				count++;
 			}
-		}
-			
+		}	
 	}
 	
 	/**

@@ -15,9 +15,12 @@ public class UnorderedDoubleLinkedListTest<T> extends UnorderedDoubleLinkedList<
 	@SuppressWarnings("unchecked")
 	public UnorderedDoubleLinkedListTest() {		
 		int size= 25;
-		String[] l= new String[size];
+		
+		Pertsona[] l= new Pertsona[size];
+		String[] names= new String[] {"Jorge","Maria","Anabel","Mikel","John","Manuel","Pedro","Carmen"};
+		
 		for(int i=0; i<size; i++)
-			l[i]=""+new java.util.Random().nextInt();
+			l[i] = new Pertsona(names[new java.util.Random().nextInt(names.length)], ""+i);
 		
 		listAux= (T[]) l;
 	}

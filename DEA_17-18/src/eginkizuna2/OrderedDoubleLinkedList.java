@@ -8,8 +8,7 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 	@throws Exception When pElement is null
 	@Cost_Function The cost is O(n)
 	*/
-	public void add(T pElement){//compareTo ez da atzigarria T pElemententuekin, orduan bakoitza bere hasode-ari begira ordenatuko da, bakoitzak bakarra izango baitu, .equals==true ematen ez den bitartean.
-		// KODEA OSATU ETA KOSTUA KALKULATU
+	public void add(T pElement){
 		if(pElement==null){
 			try {
 				throw new Exception("The value you input was null");
@@ -24,8 +23,9 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 				first.next=sartu;
 				first.prev=sartu;
 				sartuta=true;
+				count++;
 			}
-			else if(first.data.hashCode()>sartu.data.hashCode()){//lehenengoa
+			else if(first.data.hashCode()<sartu.data.hashCode()){//lehenengoa
 				sartu.next=first;
 				sartu.prev=first.prev;
 				first.prev.next=sartu;

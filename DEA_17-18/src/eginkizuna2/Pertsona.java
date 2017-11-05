@@ -4,7 +4,7 @@ public class Pertsona implements Comparable<Pertsona> {
 	
 	// atributuak
 	private String name;
-        private String na;
+    private String na;
 	
 	public Pertsona(String pName, String pNa) { // Eraikitzailea
 		name = pName;
@@ -38,7 +38,9 @@ public class Pertsona implements Comparable<Pertsona> {
 			
 	@Override
 	public int compareTo(Pertsona arg0) {
-		return name.compareToIgnoreCase(arg0.name);
+		int i;
+		i=name.compareToIgnoreCase(arg0.name);
+		return (i==0?na.compareToIgnoreCase(arg0.na):i);
 	}
 
 	public String toString() {

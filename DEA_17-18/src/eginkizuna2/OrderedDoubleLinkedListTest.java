@@ -1,5 +1,7 @@
 package eginkizuna2;
 
+import java.util.Arrays;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -9,17 +11,22 @@ import org.junit.Test;
 public class OrderedDoubleLinkedListTest<T> extends OrderedDoubleLinkedList<T> {
 
 	protected OrderedDoubleLinkedList<T> listTest;
-	protected T[] listAux;
+	protected T[] listAux,listAuxUnordered;
 	protected static int target;
 	
 	@SuppressWarnings("unchecked")
 	public OrderedDoubleLinkedListTest() {		
-		int size= 25;
-		String[] l= new String[size];
-		for(int i=0; i<size; i++)
-			l[i]=""+new java.util.Random().nextInt();
+		int size= 10;
 		
+		Pertsona[] l= new Pertsona[size];
+		String[] names= new String[] {"Jorge","Maria","Anabel","Mikel","John","Manuel","Pedro","Carmen"};
+		
+		for(int i=0; i<size; i++)
+			l[i] = new Pertsona(names[new java.util.Random().nextInt(names.length)], ""+i);
+		
+		listAuxUnordered= (T[]) l;
 		listAux= (T[]) l;
+		Arrays.sort(listAux);
 	}
 	
 	@BeforeClass
@@ -32,9 +39,9 @@ public class OrderedDoubleLinkedListTest<T> extends OrderedDoubleLinkedList<T> {
 	public void setUp() throws Exception {
 		listTest= new OrderedDoubleLinkedList<T>();
 		
-		target= new java.util.Random().nextInt(listAux.length);
-		for(int i=0; i<listAux.length;i++)
-			listTest.add(listAux[i]);
+		target= new java.util.Random().nextInt(listAuxUnordered.length);
+		for(int i=0; i<listAuxUnordered.length;i++)
+			listTest.add(listAuxUnordered[i]);
 	}
 
 	@After
@@ -48,18 +55,16 @@ public class OrderedDoubleLinkedListTest<T> extends OrderedDoubleLinkedList<T> {
 			System.out.println("\nIt should throw an error message (it's being managed):");
 			listTest.add(null);
 			org.junit.Assert.assertEquals(size,listTest.size());
-		
+			
 		//Lots of elements in the list
 			T aux = listAux[target];
-			org.junit.Assert.assertNotEquals(listTest.first(),aux);
-			listTest.add(aux);
-			org.junit.Assert.assertEquals(listTest.first(),aux);
+			org.junit.Assert.assertTrue(listTest.contains(aux));
 		
 		//Empty list
 			listTest=new OrderedDoubleLinkedList<>();
 			listTest.add(aux);
+			System.out.println(listTest.size());
 			org.junit.Assert.assertTrue(listTest.contains(aux));
-		
 	}
 	@Test
 	public void testRemoveFirst() {
