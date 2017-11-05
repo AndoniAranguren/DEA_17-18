@@ -41,98 +41,156 @@ public class OrderedDoubleLinkedListTest<T> extends OrderedDoubleLinkedList<T> {
 	public void tearDown() throws Exception {}
 
 	@Test
-	public void testAddAfter() {
-		T aux = listTest.last();
-		listTest.removeLast();
-		org.junit.Assert.assertNotEquals(listTest.last(),aux);
-		listTest.add(aux);
-		org.junit.Assert.assertEquals(listTest.last(),aux);
+	public void testAdd() {
+		//Add null
+			int size=listTest.size();
+			
+			System.out.println("\nIt should throw an error message (it's being managed):");
+			listTest.add(null);
+			org.junit.Assert.assertEquals(size,listTest.size());
+		
+		//Lots of elements in the list
+			T aux = listAux[target];
+			org.junit.Assert.assertNotEquals(listTest.first(),aux);
+			listTest.add(aux);
+			org.junit.Assert.assertEquals(listTest.first(),aux);
+		
+		//Empty list
+			listTest=new OrderedDoubleLinkedList<>();
+			listTest.add(aux);
+			org.junit.Assert.assertTrue(listTest.contains(aux));
+		
 	}
-
 	@Test
 	public void testRemoveFirst() {
-		T aux = listTest.first();
-		org.junit.Assert.assertTrue(listTest.contains(aux));
-		listTest.removeFirst();
-		org.junit.Assert.assertFalse(listTest.contains(aux));
+		//Lots of elements in the list
+			T aux = listTest.first();
+			org.junit.Assert.assertTrue(listTest.contains(aux));
+			listTest.removeFirst();
+			org.junit.Assert.assertFalse(listTest.contains(aux));	
+
+		//Empty list
+			listTest=new OrderedDoubleLinkedList<>();
+			listTest.removeFirst();
+			org.junit.Assert.assertEquals(listTest.size(),0);
+			org.junit.Assert.assertFalse(listTest.contains(aux));
 		
 	}
 
 	@Test
 	public void testRemoveLast() {
-		T aux = listTest.last();
-		org.junit.Assert.assertTrue(listTest.contains(aux));
-		listTest.removeLast();
-		org.junit.Assert.assertFalse(listTest.contains(aux));
+		//Lots of elements in the list
+			T aux = listTest.last();
+			org.junit.Assert.assertTrue(listTest.contains(aux));
+			listTest.removeLast();
+			org.junit.Assert.assertFalse(listTest.contains(aux));	
+
+		//Empty list
+			listTest=new OrderedDoubleLinkedList<>();
+			listTest.removeLast();
+			org.junit.Assert.assertEquals(listTest.size(),0);
+			org.junit.Assert.assertFalse(listTest.contains(aux));	
 	}
 
 	@Test
 	public void testRemove() {
-		T aux = listAux[target];
-		org.junit.Assert.assertTrue(listTest.contains(aux));
-		listTest.remove(aux);
-		org.junit.Assert.assertFalse(listTest.contains(aux));
+		//Lots of elements in the list
+			T aux = listAux[target];
+			org.junit.Assert.assertTrue(listTest.contains(aux));
+			listTest.remove(aux);
+			org.junit.Assert.assertFalse(listTest.contains(aux));	
+	
+		//Empty list
+			listTest=new OrderedDoubleLinkedList<>();
+			listTest.remove(aux);
+			org.junit.Assert.assertEquals(listTest.size(),0);
+			org.junit.Assert.assertFalse(listTest.contains(aux));	
+
 	}
 
 	@Test
 	public void testFirst() {
-		java.util.Iterator<T> iterator= listTest.iterator();
-		T aux = listTest.first();
+		//Lots of elements in the list
+			T aux = listAux[0];
+			org.junit.Assert.assertEquals(listTest.first(),aux);
+			org.junit.Assert.assertTrue(listTest.contains(aux));
+			listTest.remove(aux);
+			org.junit.Assert.assertFalse(listTest.contains(aux));
 
-		org.junit.Assert.assertTrue(listTest.contains(aux));
-		while(iterator.hasNext())
-			org.junit.Assert.assertTrue(aux.hashCode()<=iterator.next().hashCode());
-		
-		listTest.remove(aux);
-		org.junit.Assert.assertFalse(listTest.contains(aux));
+		//Empty list
+			listTest=new OrderedDoubleLinkedList<>();
+			org.junit.Assert.assertNull(listTest.first());
 	}
 
 	@Test
 	public void testLast() {
-		java.util.Iterator<T> iterator= listTest.iterator();
-		T aux = listTest.last();
-
-		org.junit.Assert.assertTrue(listTest.contains(aux));
-		while(iterator.hasNext())
-			org.junit.Assert.assertTrue(aux.hashCode()>=iterator.next().hashCode());
-		
-		listTest.remove(aux);
-		org.junit.Assert.assertFalse(listTest.contains(aux));
+		//Lots of elements in the list
+			T aux = listAux[listAux.length-1];
+			org.junit.Assert.assertEquals(listTest.last(),aux);
+			org.junit.Assert.assertTrue(listTest.contains(aux));
+			listTest.remove(aux);
+			org.junit.Assert.assertFalse(listTest.contains(aux));
+	
+		//Empty list
+			listTest=new OrderedDoubleLinkedList<>();
+			org.junit.Assert.assertNull(listTest.last());
 	}
 
 	@Test
 	public void testContains() {
-		T aux = listAux[target];
-		org.junit.Assert.assertTrue(listTest.contains(aux));
-		listTest.remove(aux);
-		org.junit.Assert.assertFalse(listTest.contains(aux));
+		//Lots of elements in the list
+			T aux = listAux[target];
+			org.junit.Assert.assertTrue(listTest.contains(aux));
+			listTest.remove(aux);
+			org.junit.Assert.assertFalse(listTest.contains(aux));
+	
+		//Empty list
+			listTest=new OrderedDoubleLinkedList<>();
+			org.junit.Assert.assertFalse(listTest.contains(aux));
+	
 	}
 
 	@Test
 	public void testFind() {
-		T aux = listAux[target];
-		org.junit.Assert.assertEquals(listTest.find(aux),aux);
-		listTest.remove(aux);
-		org.junit.Assert.assertNull(listTest.find(aux));
+		//Lots of elements in the list
+			T aux = listAux[target];
+			org.junit.Assert.assertEquals(listTest.find(aux),aux);
+			listTest.remove(aux);
+			org.junit.Assert.assertNull(listTest.find(aux));
+	
+		//Empty list
+			listTest=new OrderedDoubleLinkedList<>();
+			org.junit.Assert.assertNull(listTest.find(aux));
+	
 	}
 
 	@Test
 	public void testIsEmpty() {
-		org.junit.Assert.assertNotEquals(listTest.size(),0);
-		listTest= new OrderedDoubleLinkedList<T>();
-		org.junit.Assert.assertEquals(listTest.size(),0);
+		//Lots of elements in the list
+			org.junit.Assert.assertNotEquals(listTest.size(),0);
+	
+		//Empty list
+			listTest= new OrderedDoubleLinkedList<T>();
+			org.junit.Assert.assertEquals(listTest.size(),0);
 	}
 
 	@Test
 	public void testIterator() {
-		java.util.Iterator<T> iterator= listTest.iterator();
-		T auxCurrent,auxNext=null;
-		
-		if(iterator.hasNext())auxNext=iterator.next();
-		while(iterator.hasNext()) {
-			auxCurrent=auxNext;
-			auxNext=iterator.next();
-			org.junit.Assert.assertTrue(auxCurrent.hashCode()<=auxNext.hashCode());
-		}
+		//Lots of elements in the list
+			java.util.Iterator<T> iterator= listTest.iterator();
+			int index=0;
+			
+			while(iterator.hasNext()) {
+				org.junit.Assert.assertEquals(iterator.next(),listAux[index++]);
+			}
+	
+		//Empty list
+			listTest= new OrderedDoubleLinkedList<T>();
+			iterator= listTest.iterator();
+			index=0;
+			
+			while(iterator.hasNext()) {
+				org.junit.Assert.assertEquals(iterator.next(),listAux[index++]);
+			}
 	}
 }
