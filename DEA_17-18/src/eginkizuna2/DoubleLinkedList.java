@@ -241,7 +241,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 		   T pElement;
 		   
 		   public boolean hasNext(){
-			   if (isEmpty() || i==count) return false;
+			   if (isEmpty() || i>=count) return false;
 			   else{
 				   return true;
 			   }
@@ -257,6 +257,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 					   current=current.next;
 					   i++;
 				   }
+				   i++;
 			   }
 			   return pElement;
 		   }
