@@ -1,6 +1,6 @@
 package eginkizuna2;
 
-public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements OrderedListADT<T> {
+public class OrderedDoubleLinkedList<T extends Comparable<T>> extends DoubleLinkedList<T> implements OrderedListADT<T> {
 	
 	/**
 	This method adds a T pElementent ordered by it's hasCode
@@ -25,7 +25,7 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 				sartuta=true;
 				count++;
 			}
-			else if(first.data.hashCode()<sartu.data.hashCode()){//lehenengoa
+			else if(first.data.compareTo(sartu.data)>0){//lehenengoa
 				sartu.next=first;
 				sartu.prev=first.prev;
 				first.prev.next=sartu;
@@ -37,7 +37,7 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 			else{
 				Node<T> current=first.next;
 				while(!current.equals(first)&&!sartuta){ //error aqui
-					if(current.data.hashCode()>sartu.data.hashCode()){//erditik
+					if(current.data.compareTo(sartu.data)>0){//erditik
 						sartu.prev=current.prev;
 						sartu.next=current;
 						current.prev.next=sartu;
@@ -60,7 +60,7 @@ public class OrderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements O
 					if (!sartuta)
 						throw new Exception();
 				} catch (Exception e) {
-					System.err.println(pElement.hashCode()+" badago listan");
+					System.err.println(pElement+" badago listan");
 				}
 		}
 	}
