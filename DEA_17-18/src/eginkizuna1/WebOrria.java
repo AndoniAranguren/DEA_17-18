@@ -1,7 +1,6 @@
 package eginkizuna1;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class WebOrria implements Comparable<WebOrria>{
 	//Atributuak
@@ -24,8 +23,12 @@ public class WebOrria implements Comparable<WebOrria>{
 		//bilatzen duena. Hitzez hitz ateraz eta gero guztiak List batean bueltatuz
 		LinkedList<String> gakoak= new LinkedList<String>();		
 		Hiztegia hiztegi=Hiztegia.getHiztegia();
+		String[] urlMoztuta;
 		if(pUrl.contains("\\.")) {
-			String[] urlMoztuta=pUrl.split("\\.");
+			urlMoztuta=pUrl.split("\\.");
+		}else {
+			urlMoztuta= new String[]{pUrl,""};
+		}
 			String hitza;
 	
 			for(int ind=0; ind<=urlMoztuta[0].length(); ind++) {
@@ -39,7 +42,6 @@ public class WebOrria implements Comparable<WebOrria>{
 	//		for(int ind=1; ind<urlMoztuta.length; ind++) {
 	//			gakoak.add("." + urlMoztuta[ind]);
 	//		}
-		}
 		return gakoak;
 	}
 

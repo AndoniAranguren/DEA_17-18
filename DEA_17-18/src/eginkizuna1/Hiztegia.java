@@ -73,6 +73,7 @@ public class Hiztegia {
 					kop++;
 				}
 			}
+			entrada.close();
 		}
 		catch(IOException e){
 			System.out.println("Sar ezazu beste helbide bat.");

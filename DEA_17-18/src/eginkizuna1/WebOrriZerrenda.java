@@ -6,14 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
 
 public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Atributuak
 	private TreeMap<WebOrria,WebOrria> listaWebOrri;
-	private HashMap<Integer,WebOrria> listaIdWebOrri;
+	private ArrayList<WebOrria> listaIdWebOrri;
 	//Treemap WebOrriak index moduan eta WebOrrietara apuntatuz erraz atera ahal da id2String eta string2Id
 	//Gainera oso azkarra izango da, eta memoriako puntu berera apuntatzen dutenez ez dute memoria extrarik xahutuko
 	private static WebOrriZerrenda nireBurua;
@@ -21,7 +20,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Eraikitzailea
 	private WebOrriZerrenda(){
 		listaWebOrri= new TreeMap<WebOrria,WebOrria>();
-		listaIdWebOrri= new HashMap<Integer,WebOrria>();
+		listaIdWebOrri= new ArrayList<WebOrria>();
 	}
 	public static WebOrriZerrenda getWebOrriZerrenda(){
 		if(nireBurua==null)
@@ -31,7 +30,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	//Metodoak
 	public void add(WebOrria pW){
 		listaWebOrri.put(pW, pW);
-		listaIdWebOrri.put(pW.getId(), pW);
+		listaIdWebOrri.add(pW.getId(), pW);
 	}
 	public void add(List<WebOrria> pW){
 		for(WebOrria web : pW) add(web); //WebOrri = tipo de dato (int, string... en este caso la clase) web = ind (nombre del indize)
@@ -107,6 +106,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 //				listaArrayWebOrri.set(web.getId(), web); 
 				kop++;
 			}
+			entrada.close();
 			if(loading)System.out.println("]");
 		}
 		catch(IOException e){System.out.println("Beste helbide bat sar ezazu.");}
@@ -149,10 +149,10 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 				nondik=Integer.parseInt(linea.split(" ")[0]);
 				nora=Integer.parseInt(linea.split(" ")[1]);
 				listaIdWebOrri.get(nondik).addNora(listaIdWebOrri.get(nora)); //addNora = meter la web de nora en listaNora de la web Nondik
-				listaIdWebOrri.get(nora).addNora(listaIdWebOrri.get(nondik)); //addNondik = meter la web nondik en listaNondik de la web Nora
+				listaIdWebOrri.get(nora).addNondik(listaIdWebOrri.get(nondik)); //addNondik = meter la web nondik en listaNondik de la web Nora
 				kop++;
 			}
-
+			entrada.close();
 			if(loading)System.out.println("]");
 		}
 		catch(IOException e){
@@ -163,5 +163,52 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	}
 	public void clear() {
 		listaWebOrri.clear();
+	}
+	
+	public boolean erlazionatuta(String a1, String a2) {
+		return erlazionatutaPath(a1,a2)!=null;
+	}
+	
+	public ArrayList<String> erlazionatutaPath(String a1, String a2){
+		ArrayList<String> retArray= null;
+
+		HashMap<String, String> path = new HashMap<String,String>();
+		eginkizuna2.UnorderedDoubleLinkedList<WebOrria> nextWebs= 
+				new eginkizuna2.UnorderedDoubleLinkedList<WebOrria>();
+		
+		WebOrria currentWeb=string2Web(a1);//O(nlogn)
+		
+		boolean found=false;
+		nextWebs.addToRear(currentWeb);
+		path.put(currentWeb.getUrl(), null);
+		
+		while(!found && !nextWebs.isEmpty()) {
+			currentWeb=nextWebs.first();
+			found=currentWeb.equals(a2);
+			if(!found) {
+				nextWebs.removeFirst();
+				for(WebOrria web:currentWeb.getNora()) {
+					if(!path.containsKey(web.getUrl())){
+						nextWebs.addToRear(web);
+						path.put(web.getUrl(), currentWeb.getUrl());
+					}
+				}
+			}
+		}
+		
+		if(found) {//Create the array we have to return
+			String current= a2;
+			retArray= new ArrayList<String>();
+			while(current!=null) {	//Inverted array. O(m) m being the amount of webs linked between a1 and a2
+				retArray.add(current);
+				current=path.get(current);
+			}
+			for (int i = 0; i < retArray.size() / 2; ++i) { // Invert it back. O(m/2) only goes for half the array size
+			    String elem = retArray.get(i); 
+			    retArray.set(i,retArray.get( (retArray.size()-1) -i )); // we set i-th element with i-th element from the back
+			    retArray.set( (retArray.size()-1) -i, elem);
+			  }
+		}
+		return retArray;
 	}
 }
