@@ -124,47 +124,53 @@ public class Grafoa {
 	}
 	
 	public ArrayList<String> erlazionatutaPath(String a1, String a2){
+		
 		ArrayList<String> retArray= null;
 
-		HashMap<String, String> path = new HashMap<String,String>();
-		eginkizuna2.UnorderedDoubleLinkedList<Integer> nextWebs= 
-				new eginkizuna2.UnorderedDoubleLinkedList<Integer>();
-		
-		int currentWeb=th.get(a1);
-		int destiny= th.get(a2);
-		boolean found=false;
-		
-		nextWebs.addToRear(currentWeb);
-		path.put(keys[currentWeb], null);
-		
-		while(!found && !nextWebs.isEmpty()) {
-			currentWeb=nextWebs.first();
-			found= (currentWeb==destiny);
-			if(!found) {
-				nextWebs.removeFirst();
-				if(adjList[currentWeb]!=null)
-					for(int id:adjList[currentWeb]) {
-						if(!path.containsKey(keys[id])){
-							nextWebs.addToRear(id);
-							path.put(keys[id], keys[currentWeb]);
+		//a1 edo a2 ez badauka ezer ez egin
+		if(th.containsKey(a1)&&th.containsKey(a2)) {
+			HashMap<String, String> path = new HashMap<String,String>();
+			eginkizuna2.UnorderedDoubleLinkedList<Integer> nextWebs= 
+					new eginkizuna2.UnorderedDoubleLinkedList<Integer>();
+			
+			int currentWeb=th.get(a1);
+			int destiny= th.get(a2);
+			boolean found=false;
+			
+			nextWebs.addToRear(currentWeb);
+			path.put(keys[currentWeb], null);
+			
+			while(!found && !nextWebs.isEmpty()) {
+				currentWeb=nextWebs.first();
+				found= (currentWeb==destiny);
+				if(!found) {
+					nextWebs.removeFirst();
+					if(adjList[currentWeb]!=null)
+						for(int id:adjList[currentWeb]) {
+							if(!path.containsKey(keys[id])){
+								nextWebs.addToRear(id);
+								path.put(keys[id], keys[currentWeb]);
+							}
 						}
-					}
+				}
+			}
+			
+			if(found) {//Create the array we have to return
+				String current= a2;
+				retArray= new ArrayList<String>();
+				while(current!=null) {	//Inverted array. O(m) m being the amount of webs linked between a1 and a2
+					retArray.add(current);
+					current=path.get(current);
+				}
+				for (int i = 0; i < retArray.size() / 2; ++i) { // Invert it back. O(m/2) only goes for half the array size
+				    String elem = retArray.get(i); 
+				    retArray.set(i,retArray.get( (retArray.size()-1) -i )); // we set i-th element with i-th element from the back
+				    retArray.set( (retArray.size()-1) -i, elem);
+				  }
 			}
 		}
 		
-		if(found) {//Create the array we have to return
-			String current= a2;
-			retArray= new ArrayList<String>();
-			while(current!=null) {	//Inverted array. O(m) m being the amount of webs linked between a1 and a2
-				retArray.add(current);
-				current=path.get(current);
-			}
-			for (int i = 0; i < retArray.size() / 2; ++i) { // Invert it back. O(m/2) only goes for half the array size
-			    String elem = retArray.get(i); 
-			    retArray.set(i,retArray.get( (retArray.size()-1) -i )); // we set i-th element with i-th element from the back
-			    retArray.set( (retArray.size()-1) -i, elem);
-			  }
-		}
 		return retArray;
+	
 	}
 }
