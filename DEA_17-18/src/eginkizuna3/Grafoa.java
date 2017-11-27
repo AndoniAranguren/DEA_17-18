@@ -127,7 +127,7 @@ public class Grafoa {
 		
 		ArrayList<String> retArray= null;
 
-		//a1 edo a2 ez badauka ezer ez egin
+		//a1 edo a2 ez badauka, ezer ez egin
 		if(th.containsKey(a1)&&th.containsKey(a2)) {
 			HashMap<String, String> path = new HashMap<String,String>();
 			eginkizuna2.UnorderedDoubleLinkedList<Integer> nextWebs= 
