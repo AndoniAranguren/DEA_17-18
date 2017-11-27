@@ -171,6 +171,12 @@ public class Grafoa {
 		}
 		
 		return retArray;
-	
+	}
+	public void clear() {
+		th=null;
+		adjList=null;
+		keys=null;
+		totales=0;
+		System.gc();
 	}
 }

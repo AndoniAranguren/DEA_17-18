@@ -163,6 +163,8 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	}
 	public void clear() {
 		listaWebOrri.clear();
+		listaIdWebOrri.clear();
+		System.gc();
 	}
 	
 	public boolean erlazionatuta(String a1, String a2) {
