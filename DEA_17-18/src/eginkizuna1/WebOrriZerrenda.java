@@ -86,7 +86,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		int totales= lineaTotalak(pHelbidea), kop=1,ehuneko=0;
 		boolean loading= totales>1000000;
 
-		System.out.println("WebOrriZerrendan datuak kargatzen...");
+		System.out.println("\nWebOrriZerrendan datuak kargatzen...");
 		try{
 			Scanner entrada= new Scanner (new FileReader(pHelbidea)); //Scanner solo coge string, toda la linea
 			if(loading) {
@@ -111,8 +111,8 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		}
 		catch(IOException e){System.out.println("Beste helbide bat sar ezazu.");}
 
-		System.out.println((kop-1)+ " hitz kargatu dira");
-		System.out.println(listaWebOrri.size()+ " hitz ditu listak");
+		System.out.println((kop-1)+ " weborri kargatu dira");
+		System.out.println(listaWebOrri.size()+ " weborri ditu listak");
 	}
 	private int lineaTotalak(String pHeblidea) {
 		int lines = 0;
@@ -174,7 +174,6 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	public ArrayList<String> erlazionatutaPath(String a1, String a2){
 
 		ArrayList<String> retArray= null;
-		
 		//a1 edo a2 ez badauka ezer ez egin
 		if(string2Web(a1)!=null&&string2Web(a2)!=null){
 			HashMap<String, String> path = new HashMap<String,String>();

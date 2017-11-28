@@ -40,7 +40,7 @@ public class Grafoa {
 		int kop=1,ehuneko=0;
 		boolean loading= totales>1000000;
 
-		System.out.println("WebOrriZerrendan datuak kargatzen...");
+		System.out.println("\nGrafoan datuak kargatzen...");
 		try{
 			Scanner entrada= new Scanner (new FileReader(pHelbidea)); //Scanner solo coge string, toda la linea
 			if(loading) {
@@ -171,6 +171,9 @@ public class Grafoa {
 		}
 		
 		return retArray;
+	}
+	public int getTotal() {
+		return totales;
 	}
 	public void clear() {
 		th=null;
