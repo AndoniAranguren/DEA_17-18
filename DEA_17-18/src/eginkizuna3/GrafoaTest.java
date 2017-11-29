@@ -73,7 +73,7 @@ public class GrafoaTest {
 	}
 	
 	@Test
-	public void testErlazionatutaPathLuzea() {
+	public void f() {
 		ArrayList<String> listGrafo,listWeb;
 		double denbGrafo, denbWeb;
 		
@@ -92,8 +92,8 @@ public class GrafoaTest {
 		listGrafo=grafoa.erlazionatutaPath(a1, a2);
  		denbGrafo=watch.elapsedTime();
  		System.out.println("\nErlazionatu luzea"
- 				+ "\nGrafoa Denbora:"+denbGrafo+"s Ordena: O("+ denbGrafo/listGrafo.size() +"n)\n"+listGrafo
- 				+ "\nWebOrriaren Denbora:"+denbWeb+"s Ordena: O("+denbWeb/listGrafo.size() +"n)\n"+listWeb
+ 				+ "\nGrafoa Denbora:"+denbGrafo+"s\n"+listGrafo
+ 				+ "\nWebOrriaren Denbora:"+denbWeb+"s\n"+listWeb
  				+ "\nWebOrriak erabiliz "+denbWeb/denbGrafo+" aldiz grafoarekin behar den denbora behar da");
 		
  		Assert.assertNotNull(grafoa.erlazionatutaPath(a1, a2));	//Linkeatuta daukan web batera
@@ -121,8 +121,8 @@ public class GrafoaTest {
 		listGrafo=grafoa.erlazionatutaPath(a1, a2);
  		denbGrafo=watch.elapsedTime();
  		System.out.println("\nErlazionatu laburra (Laburra da, denbora analisia ez da oso ezanguratsua)"
- 				+ "\nGrafoa Denbora:"+denbGrafo+"s Ordena: O("+ denbGrafo/listGrafo.size() +"n)\n"+listGrafo
- 				+ "\nWebOrriaren Denbora:"+denbWeb+"s Ordena: O("+denbWeb/listGrafo.size() +"n)\n"+listWeb
+ 				+ "\nGrafoa Denbora:"+denbGrafo+"s\n"+listGrafo
+ 				+ "\nWebOrriaren Denbora:"+denbWeb+"s\n"+listWeb
  				+ "\nWebOrriak erabiliz "+denbWeb/denbGrafo+" aldiz grafoarekin behar den denbora behar da");
  		
 		

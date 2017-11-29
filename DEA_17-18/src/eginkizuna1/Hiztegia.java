@@ -81,4 +81,7 @@ public class Hiztegia {
 		System.out.println(kop+ " hitz kargatu dira");
 		System.out.println(hiztegia.size()+ " hitz ditu listak");
 	}
+	public int getSize() {
+		return hiztegia.size();
+	}
 }

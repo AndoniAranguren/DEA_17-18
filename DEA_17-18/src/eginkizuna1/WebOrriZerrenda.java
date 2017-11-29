@@ -172,7 +172,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	}
 	
 	public ArrayList<String> erlazionatutaPath(String a1, String a2){
-
+		int kont=0;
 		ArrayList<String> retArray= null;
 		//a1 edo a2 ez badauka ezer ez egin
 		if(string2Web(a1)!=null&&string2Web(a2)!=null){
@@ -187,6 +187,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 			path.put(currentWeb.getUrl(), null);
 			
 			while(!found && !nextWebs.isEmpty()) {
+				kont++;
 				currentWeb=nextWebs.first();
 				found=currentWeb.equals(a2);
 				if(!found) {
@@ -199,7 +200,7 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 					}
 				}
 			}
-			
+			System.out.println(kont+ " web konprobatu dira");
 			if(found) {//Create the array we have to return
 				String current= a2;
 				retArray= new ArrayList<String>();

@@ -124,8 +124,10 @@ import org.junit.After;
  		
  		System.out.println("\n>DatuakKargatu (Lista Luzea)");
  		Stopwatch erloju= new Stopwatch();
- 		hiztegia.datuakKargatu("src\\eginkizuna1\\hiztegiLuzea.txt");
- 		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
+ 		hiztegia.datuakKargatu("src\\eginkizuna1\\ListaLuzea.txt");
+ 		double erl=erloju.elapsedTime();
+ 		System.out.println("Denbora: " + erl + " segundu"
+ 				+ "\nO("+erl/hiztegia.getSize()+"n)");
  	}
  
  }

@@ -124,7 +124,7 @@ public class Grafoa {
 	}
 	
 	public ArrayList<String> erlazionatutaPath(String a1, String a2){
-		
+		int kont=0;
 		ArrayList<String> retArray= null;
 
 		//a1 edo a2 ez badauka, ezer ez egin
@@ -141,6 +141,7 @@ public class Grafoa {
 			path.put(keys[currentWeb], null);
 			
 			while(!found && !nextWebs.isEmpty()) {
+				kont++;
 				currentWeb=nextWebs.first();
 				found= (currentWeb==destiny);
 				if(!found) {
@@ -154,6 +155,7 @@ public class Grafoa {
 						}
 				}
 			}
+			System.out.println(kont+ " web konprobatu dira");
 			
 			if(found) {//Create the array we have to return
 				String current= a2;
