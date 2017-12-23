@@ -257,7 +257,6 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 					   current=current.next;
 					   i++;
 				   }
-				   i++;
 			   }
 			   return pElement;
 		   }

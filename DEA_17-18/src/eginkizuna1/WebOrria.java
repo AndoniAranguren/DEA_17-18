@@ -15,7 +15,7 @@ public class WebOrria implements Comparable<WebOrria>{
 	
 	//Eraikitzailea
 	public WebOrria(String pUrl, int pId){
-		pageRank=0.25;
+		pageRank=0;
 		url=pUrl;
 		id=pId;
 		Hiztegia.getHiztegia().addWebOrria(getGakoa(),this);

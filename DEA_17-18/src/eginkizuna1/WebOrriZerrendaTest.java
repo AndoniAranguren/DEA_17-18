@@ -14,7 +14,8 @@ import static org.junit.Assert.*;
  import eginkizuna1.WebOrriZerrenda;
  
  import java.util.ArrayList;
- import java.util.Random;
+import java.util.HashMap;
+import java.util.Random;
  
  public class WebOrriZerrendaTest {
  	
@@ -140,7 +141,7 @@ import static org.junit.Assert.*;
  		erloju= new Stopwatch();
  		System.out.println("\n>DatuakKargatu (Lista Laburra)");
  		weborrizerrenda.datuakKargatu("src\\eginkizuna1\\indexLaburra.txt");
- 		weborrizerrenda.webOrrienDatuakKargatu("src\\eginkizuna1\\pdlarcLaburra.txt");
+ 		weborrizerrenda.webOrrienDatuakKargatu("src\\eginkizuna1\\pdl-arcLaburra.txt");
  		System.out.println("Denbora: " + erloju.elapsedTime() + " segundu");
  
  		erloju= new Stopwatch();
@@ -162,4 +163,51 @@ import static org.junit.Assert.*;
  		System.out.println(weborrizerrenda.erlazionatutaPath(a1, a2));
  	}
  	
+ 	@Test
+ 	public void testPageRank(){
+ 		Hiztegia.getHiztegia().clear();
+ 		Hiztegia.getHiztegia().datuakKargatu("src\\eginkizuna1\\hiztegiLaburra.txt");
+ 		
+ 		weborrizerrenda.datuakKargatu("src\\eginkizuna1\\indexLaburra.txt");
+ 		weborrizerrenda.webOrrienDatuakKargatu("src\\eginkizuna1\\pdl-arcLaburra.txt");
+ 		
+ 		java.util.Set<java.util.Map.Entry<String,Double>> list=weborrizerrenda.pageRank().entrySet();
+ 		
+ 		for(java.util.Map.Entry<String,Double> entry: list){
+ 			System.out.println("Url: "+entry.getKey()+"  PageRank: "+entry.getValue());
+ 		}
+ 	}
+ 	
+ 	@Test
+ 	public void testBilatzailea(){
+ 		Hiztegia.getHiztegia().clear();
+ 		Hiztegia.getHiztegia().datuakKargatu("src\\eginkizuna1\\hiztegiLaburra.txt");
+ 		
+ 		weborrizerrenda.datuakKargatu("src\\eginkizuna1\\indexLaburra.txt");
+ 		weborrizerrenda.webOrrienDatuakKargatu("src\\eginkizuna1\\pdl-arcLaburra.txt");
+ 		
+ 		ArrayList<String> list=weborrizerrenda.bilatzailea("e", "d", new java.util.HashMap<String,Double>());
+ 		
+ 		for(String s: list){
+ 			System.out.println("Url: "+s);
+ 		}
+ 	}
+	@Test
+ 	public void testPageRankLuzea(){
+ 		Hiztegia.getHiztegia().clear();
+ 		Hiztegia.getHiztegia().datuakKargatu("src\\eginkizuna1\\hiztegiLuzea.txt");
+ 		
+ 		weborrizerrenda.datuakKargatu("src\\eginkizuna1\\indexLuzea.txt");
+ 		weborrizerrenda.webOrrienDatuakKargatu("src\\eginkizuna1\\pdl-pdl-arc.txt");
+ 		
+ 		HashMap<String, Double> list = weborrizerrenda.pageRank();
+ 		
+ 		System.out.println(list.size());
+ 		
+ 		ArrayList<String> listBilatu=weborrizerrenda.bilatzailea("e", "d", new java.util.HashMap<String,Double>());
+ 		
+ 		for(String s: listBilatu){
+ 			System.out.println("Url: "+s);
+ 		}
+ 	}
  } 

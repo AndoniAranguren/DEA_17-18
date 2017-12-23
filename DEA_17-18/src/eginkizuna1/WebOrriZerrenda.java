@@ -225,35 +225,35 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 	 public HashMap<String, Double> pageRank(){
 	        //Post: emaitza, web-orri zerrendaren web-orri bakoitzaren PageRank algoritmoaren balioa da
 	        HashMap<String, Double> prlist = new HashMap<String, Double>();
-	        ArrayList<Integer> apuntadoreak = new ArrayList<Integer>(); //PageRank kalkulatzen ari garen weborrialdeari, apuntatzen dituen weborriak gorde. 
 	        
-	        int webkop=listaIdWebOrri.size();
-	        int j = 0,estekakop=0;//Dagokion weborriaren zenbat esteka ateratzen diren gordeko du
-	        double iterazioa=0,aux=0;
-	        double batuketa=0.25*webkop;
-	        double[] pr = new double [webkop]; //Pagerank balioa gorde iterazion bakoitzean
+	        int webKop=listaIdWebOrri.size();
+	        int j = 0,estekaKop=0;//Dagokion weborriaren zenbat esteka ateratzen diren gordeko du
+	        double iterazioa=(1/webKop),aux=0;
+	        double batuketa=1;
 	        
-	        resetPageRank();
+	        resetPageRank(webKop);
 	        
 	        while (batuketa>0.0001){
-	            if (j==webkop){
-	                batuketa=batuketa-iterazioa;
+	            if (j==webKop){
+	                batuketa-=iterazioa;
 	                j=0;
 	            }
+	            aux=0;
 	            for(WebOrria web: this.id2Web(j).getNondik()){ //A-ri zein weborria apuntatzen dizkieten ikusi
-	            	estekakop=web.getNora().size(); //Apuntadore baten esteken zerrendaren tamania
-	                aux=aux+(pr[web.getId()]/estekakop);
+	            	estekaKop=web.getNora().size(); //Apuntadore baten esteken zerrendaren tamania
+	                aux+=(web.getPageRank()/estekaKop);
 	            }
-	            pr[j]=((1-0.85)/webkop)+(0.85*aux); //PageRank  formula, 0.85=d
-	            prlist.put(id2String(j), pr[j]);
-	            iterazioa=iterazioa+pr[j];
+	            double prValue=((1-0.85)/webKop)+(0.85*aux);//PageRank  formula, 0.85=d
+	            prlist.put(id2String(j),prValue);
+	            id2Web(j).setPageRank(prValue);
+	            iterazioa+=prValue;
 	            j++;
 	        }
 	        return prlist;
 	    }
-	private void resetPageRank() {
+	private void resetPageRank(double pWebKop) {
 		for(WebOrria web: listaIdWebOrri){
-			web.setPageRank(0.25);
+			web.setPageRank((double)1/pWebKop);
 		}
 	}
 	
@@ -261,34 +261,71 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		/* Post: Emaitza emandako gako-hitzak dituzten web-orrien zerrenda da, bere pagerank-aren arabera handienetik txikienera ordenatuta 
 		   (hau da,lehenengo posizioetan pagerank handiena duten web-orriak agertuko dira)*/
 		// The HashMap of pagerank is deprecated. We don't use it in this structure
-		return bilatzailea(gakoHitz1,null,pageRanks);
+		
+		ArrayList<String> returnArray=null;
+		if(Hiztegia.getHiztegia().contains(gakoHitz1)){
+			pageRank();
+			
+			LinkedList<WebOrria> list=words2Webs(gakoHitz1);
+			list.sort(new Comparator<WebOrria>() {
+				
+				@Override
+				public int compare(WebOrria o1, WebOrria o2) {
+					return Double.compare(o2.getPageRank(), o1.getPageRank());
+				}
+				
+			});
+			
+			//Pasatu ArrayList batera
+			returnArray= new ArrayList<String>();
+			Iterator<WebOrria> it= list.iterator();
+			while (it.hasNext()){
+				returnArray.add(it.next().getUrl());
+			}
+		}
+		return returnArray;
 	}
 	
 	public ArrayList<String> bilatzailea(String gakoHitz1,String gakoHitz2, HashMap<String,Double> pageRanks){
 		/* Post: Emaitza emandako gako-hitzak dituzten web-orrien zerrenda da, bere pagerank-aren arabera handienetik txikienera ordenatuta 
 		   (hau da,lehenengo posizioetan pagerank handiena duten web-orriak agertuko dira)*/
 		// The HashMap of pagerank is deprecated. We don't use it in this structure
+
+		ArrayList<String> returnArray=null;
 		
-		pageRank();
-		
-		LinkedList<WebOrria> list=words2Webs(gakoHitz1);
-		if(gakoHitz2!=null)list.addAll(words2Webs(gakoHitz2));
-		list.sort(new Comparator<WebOrria>() {
+		if(Hiztegia.getHiztegia().contains(gakoHitz1)&&Hiztegia.getHiztegia().contains(gakoHitz2)){
+			pageRank();
 			
-			@Override
-			public int compare(WebOrria o1, WebOrria o2) {
-				return Double.compare(o2.getPageRank(), o1.getPageRank());
+			LinkedList<WebOrria> list=words2Webs(gakoHitz1);
+			Iterator<WebOrria> iterator=(words2Webs(gakoHitz2)).iterator();
+
+			LinkedList<WebOrria> listAux = new LinkedList<WebOrria>();
+			WebOrria web;
+			
+			while(iterator.hasNext()){
+				web=iterator.next();
+				if(list.contains(web)){
+					listAux.add(web);
+				}
 			}
 			
-		});
-		
-		//Pasatu ArrayList batera
-		ArrayList<String> returnArray= new ArrayList<String>();
-		Iterator<WebOrria> it= list.iterator();
-		while (it.hasNext()){
-			returnArray.add(it.next().getUrl());
+			listAux.sort(new Comparator<WebOrria>() {
+				
+				@Override
+				public int compare(WebOrria o1, WebOrria o2) {
+					return Double.compare(o2.getPageRank(), o1.getPageRank());
+				}
+				
+			});
+			
+			//Pasatu ArrayList batera
+			returnArray= new ArrayList<String>();
+			iterator= listAux.iterator();
+			
+			while (iterator.hasNext()){
+				returnArray.add(iterator.next().getUrl());
+			}
 		}
-		
 		return returnArray;
 	}
 	private LinkedList<WebOrria> words2Webs(String gakoHitz1){
