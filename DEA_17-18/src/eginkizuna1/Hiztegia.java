@@ -54,6 +54,9 @@ public class Hiztegia {
 		for(String hitza: pH)
 			add(hitza);
 	}
+	public UnorderedDoubleLinkedList<WebOrria> getHitza(String pHitza){
+		return hiztegia.get(pHitza);
+	}
 	public boolean contains(String pH) {
 		return hiztegia.containsKey(pH);
 	}

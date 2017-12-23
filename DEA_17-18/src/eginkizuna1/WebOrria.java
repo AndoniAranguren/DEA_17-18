@@ -6,6 +6,7 @@ public class WebOrria implements Comparable<WebOrria>{
 	//Atributuak
 	private String url;
 	private int id;
+	private double pageRank;
 	
 	//ArrayList best for get from an index
 	//LinkedList best for iteration or adding
@@ -14,6 +15,7 @@ public class WebOrria implements Comparable<WebOrria>{
 	
 	//Eraikitzailea
 	public WebOrria(String pUrl, int pId){
+		pageRank=0.25;
 		url=pUrl;
 		id=pId;
 		Hiztegia.getHiztegia().addWebOrria(getGakoa(),this);
@@ -100,5 +102,11 @@ public class WebOrria implements Comparable<WebOrria>{
 	}
 	public int compareTo(WebOrria pW){
 		return pW.compareTo(url)*(-1);//Bider -1 buelta ematen diolako
+	}
+	public double getPageRank() {
+		return pageRank;
+	}
+	public void setPageRank(double pageRank) {
+		this.pageRank = pageRank;
 	}
 }

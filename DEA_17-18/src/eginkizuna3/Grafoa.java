@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import eginkizuna1.WebOrriZerrenda;
+import eginkizuna1.WebOrria;
+
 public class Grafoa {
 	private HashMap<String,Integer> th;
 	private String[] keys;
@@ -174,6 +177,37 @@ public class Grafoa {
 		
 		return retArray;
 	}
+    public HashMap<String, Double> pageRank(){
+        //Post: emaitza, web-orri zerrendaren web-orri bakoitzaren PageRank algoritmoaren balioa da
+        HashMap<String, Double> prlist = new HashMap<String, Double>();
+        ArrayList<Integer> apuntadoreak = new ArrayList<Integer>(); //PageRank kalkulatzen ari garen weborrialdeari, apuntatzen dituen weborriak gorde. 
+        
+        int webkop=keys.length;
+        int j = 0,estekakop=0;//Dagokion weborriaren zenbat esteka ateratzen diren gordeko du
+        double iterazioa=0,aux=0;
+        double batuketa=0.25*webkop;
+        double[] pr = new double [keys.length]; //Pagerank balioa gorde iterazion bakoitzean
+
+        for (int i=0; i<webkop; i++){ //1.Iterazioa
+            prlist.put(keys[i],0.25);
+        }
+        while (batuketa>0.0001){
+            if (j==webkop){
+                batuketa=batuketa-iterazioa;
+                j=0;
+            }
+            for(WebOrria web: WebOrriZerrenda.getWebOrriZerrenda().id2Web(j).getNondik()){ //A-ri zein weborria apuntatzen dizkieten ikusi
+            	estekakop=adjList[web.getId()].size(); //Apuntadore baten esteken zerrendaren tamania
+                aux=aux+(pr[web.getId()]/estekakop);
+            }
+            pr[j]=((1-0.85)/keys.length)+(0.85*aux); //PageRank  formula, 0.85=d
+            prlist.put(keys[j], pr[j]);
+            iterazioa=iterazioa+pr[j];
+            j++;
+        }
+        return prlist;
+    }
+
 	public int getTotal() {
 		return totales;
 	}
