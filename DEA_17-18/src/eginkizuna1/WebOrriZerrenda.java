@@ -269,13 +269,15 @@ public class WebOrriZerrenda { //FN+F3 PA SABER DE DONDE SALE
 		   (hau da,lehenengo posizioetan pagerank handiena duten web-orriak agertuko dira)*/
 		// The HashMap of pagerank is deprecated. We don't use it in this structure
 		
+		pageRank();
+		
 		LinkedList<WebOrria> list=words2Webs(gakoHitz1);
 		if(gakoHitz2!=null)list.addAll(words2Webs(gakoHitz2));
 		list.sort(new Comparator<WebOrria>() {
 			
 			@Override
 			public int compare(WebOrria o1, WebOrria o2) {
-				return Double.compare(o1.getPageRank(), o2.getPageRank());
+				return Double.compare(o2.getPageRank(), o1.getPageRank());
 			}
 			
 		});
